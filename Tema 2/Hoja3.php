@@ -14,7 +14,7 @@
 <?php
 
 $fechaActual = date("d-m-Y"); // Salida: 21-09-2024
-echo $fechaActual;
+echo $fechaActual . "<br>";
 
 
 $fechaMenosCinco = date("d-m-Y",strtotime("-5 days"));
