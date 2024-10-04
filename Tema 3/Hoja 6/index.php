@@ -1,5 +1,7 @@
 <?php
 include 'Clases/ElementoVolador.php';
+require_once 'Trait/Mensaje.php';
+
 $avion1 = new Avion("Airbus A380", 2, 4, "Iberia", 15, 10, 2020, 12000);
 echo $avion1->mostrarInformacion();
 
@@ -22,7 +24,6 @@ $helicoptero1 = new Helicoptero("Heli1", 0, 1, "asd", 3);
 $helicoptero2 = new Helicoptero("Heli2", 0, 1, "qwe", 4);
 $helicoptero3 = new Helicoptero("Heli3", 0, 1, "zxc", 2);
 
-// Insertar
 $aeropuerto->insertar($avion1);
 $aeropuerto->insertar($avion2);
 $aeropuerto->insertar($avion3);
