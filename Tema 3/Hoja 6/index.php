@@ -1,5 +1,5 @@
 <?php
-include 'Clases/ElementoVolador.php';
+include_once 'Clases/ElementoVolador.php';
 require_once 'Trait/Mensaje.php';
 
 $avion1 = new Avion("Airbus A380", 2, 4, "Iberia", 15, 10, 2020, 12000);
