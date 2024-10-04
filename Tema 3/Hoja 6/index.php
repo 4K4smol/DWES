@@ -30,16 +30,16 @@ $aeropuerto->insertar($helicoptero1);
 $aeropuerto->insertar($helicoptero2);
 $aeropuerto->insertar($helicoptero3);
 echo "<br>";
-echo $aeropuerto->buscar("Boeing 747"); // Existente
+echo $aeropuerto->buscar("Boeing 747"); 
 echo "<br>";
 echo $aeropuerto->buscar("No existe"); // No existente
 echo "<br>";
 
-echo $aeropuerto->ListarCompañia("Iberia"); // Existente
+echo $aeropuerto->ListarCompañia("Iberia"); 
 echo $aeropuerto->ListarCompañia("Vueling"); // No existente
 
 
-echo $aeropuerto->rotores(3); // Con rotores existentes
-echo $aeropuerto->rotores(5); // No existentes
+echo $aeropuerto->rotores(3); 
+echo $aeropuerto->rotores(5); // No existente
 
 ?>

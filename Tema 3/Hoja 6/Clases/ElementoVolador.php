@@ -3,11 +3,11 @@ include 'Interfaz/Volador.php';
 include 'Trait/Mensaje.php';
     abstract Class ElementoVolador implements Volador{
 
-        private string $nombre;
-        private int $numAlas;
-        private int $numMotores;
-        private float $altitud;
-        private int $velocidad;
+        protected string $nombre;
+        protected int $numAlas;
+        protected int $numMotores;
+        protected float $altitud;
+        protected int $velocidad;
 
         public function __construct($nombre,$numAlas,$numMotores)
         {
@@ -36,7 +36,7 @@ include 'Trait/Mensaje.php';
 
         public function Acelerar($velocidad)
         {
-            $this->velocidad=$velocidad;
+            $this->velocidad+=$velocidad;
         }
 
         abstract public function Volar($altitud);
