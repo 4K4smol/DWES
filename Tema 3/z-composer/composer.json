@@ -1,5 +1,17 @@
+
 {
-    "require": {
-        "hackzilla/password-generator": "^1.7"
-    }
+    
+        "name": "ecl/01-primer-proyecto",
+        "description": "Estoy aprendiendo a trabajar con Composer",
+        "type": "project",
+        "authors": [
+            {
+                "name": " 4k4smol",
+                "email": "eloycuesta@hotmail.es"
+            }
+        ],
+        "minimum-stability": "stable",
+        "require": {
+            "hackzilla/password-generator": "^1.7"
+        }
 }
