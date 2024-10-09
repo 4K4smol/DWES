@@ -49,6 +49,6 @@
             "install-path": "../hackzilla/password-generator"
         }
     ],
-    "dev": true,
+    "dev": false,
     "dev-package-names": []
 }

@@ -1,20 +1,20 @@
 <?php return array(
     'root' => array(
-        'name' => '__root__',
+        'name' => 'ecl/01-primer-proyecto',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '95b697fef1dcb9bc7f7aa4e4d497808284cc6039',
-        'type' => 'library',
+        'reference' => '1ac130a228f4fb91376886b90beb2d831a92a395',
+        'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'dev' => true,
+        'dev' => false,
     ),
     'versions' => array(
-        '__root__' => array(
+        'ecl/01-primer-proyecto' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '95b697fef1dcb9bc7f7aa4e4d497808284cc6039',
-            'type' => 'library',
+            'reference' => '1ac130a228f4fb91376886b90beb2d831a92a395',
+            'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
             'dev_requirement' => false,
