@@ -6,10 +6,18 @@ namespace Composer\Autoload;
 
 class ComposerStaticInitd4ac266ae697b8e915e3e3b0d80dd92e
 {
+    public static $files = array (
+        '741584db7d7d87c093e04d16abe3ca01' => __DIR__ . '/../..' . '/app/helpers.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
         'H' => 
         array (
             'Hackzilla\\PasswordGenerator\\' => 28,
+        ),
+        'A' => 
+        array (
+            'App\\' => 4,
         ),
     );
 
@@ -17,6 +25,10 @@ class ComposerStaticInitd4ac266ae697b8e915e3e3b0d80dd92e
         'Hackzilla\\PasswordGenerator\\' => 
         array (
             0 => __DIR__ . '/..' . '/hackzilla/password-generator',
+        ),
+        'App\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app',
         ),
     );
 

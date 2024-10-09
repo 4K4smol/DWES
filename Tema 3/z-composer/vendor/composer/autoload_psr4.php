@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Hackzilla\\PasswordGenerator\\' => array($vendorDir . '/hackzilla/password-generator'),
+    'App\\' => array($baseDir . '/app'),
 );
