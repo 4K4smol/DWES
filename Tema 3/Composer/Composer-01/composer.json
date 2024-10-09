@@ -1,0 +1,15 @@
+{
+    "name": "ecl/01-composer",
+    "description": "Ejercicio primero composer",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Etsiu7",
+            "email": "eloycuesta@hotmail.es"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "brick/math": "^0.12.1"
+    }
+}
