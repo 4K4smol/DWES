@@ -12,7 +12,8 @@ trait InformacionLaboral {
     }
 
     public function mostrarInformacionLaboral(): string {
-        return "Código Empleado: $this->codigoEmpleado, Salario: $this->salario<br>";
+        return "Código Empleado: $this->codigoEmpleado,
+        Salario: $this->salario<br>";
     }
 }
 

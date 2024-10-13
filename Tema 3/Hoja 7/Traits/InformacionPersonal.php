@@ -14,7 +14,9 @@ trait InformacionPersonal {
     }
 
     public function mostrarInformacionPersonal(): string {
-        return "Nombre: $this->nombre, Edad: $this->edad, Dirección: $this->direccion<br>";
+        return "Nombre: $this->nombre,
+        Edad: $this->edad,
+        Dirección: $this->direccion<br>";
     }
 }
 ?>

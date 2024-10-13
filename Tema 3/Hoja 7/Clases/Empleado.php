@@ -1,6 +1,6 @@
 <?php
 
-namespace Hoja7\Clases; // Cambia a "Clases"
+namespace Hoja7\Clases; 
 
 use Hoja7\Traits\InformacionPersonal;
 use Hoja7\Traits\InformacionLaboral;
@@ -10,7 +10,8 @@ class Empleado {
     use InformacionPersonal, InformacionLaboral, Mensaje;
 
     public function mostrarInformacionCompleta(): string {
-        return $this->mostrarInformacionPersonal() . $this->mostrarInformacionLaboral();
+        return $this->mostrarInformacionPersonal() .
+         $this->mostrarInformacionLaboral();
     }
 }
 
