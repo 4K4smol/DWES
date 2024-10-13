@@ -1,6 +1,6 @@
 <?php
 
-namespace MiProyecto\Traits;
+namespace Hoja7\Traits;
 
 trait InformacionLaboral {
     private string $codigoEmpleado;
