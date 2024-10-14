@@ -7,5 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Brick\\Math\\' => array($vendorDir . '/brick/math/src'),
-    'App\\' => array($baseDir . '/src'),
+    'App\\' => array($baseDir . '/app'),
 );

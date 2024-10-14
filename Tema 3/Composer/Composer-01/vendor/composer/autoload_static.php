@@ -24,7 +24,7 @@ class ComposerStaticInite2e72cb85479bb618a4c656d5eefdd99
         ),
         'App\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/src',
+            0 => __DIR__ . '/../..' . '/app',
         ),
     );
 
