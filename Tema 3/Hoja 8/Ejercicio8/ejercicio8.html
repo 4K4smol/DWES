@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="ejercicio8_datos.php" method="post">
+        <label for="primerNumero">Elije primer numero</label>
+        <input type="number" name="primerNumero" id="primerNumero"><br>
+        <label for="segundoNumero">Elije segundo numero</label>
+        <input type="number" name="segundoNumero" id="segundoNumero"><br>
+        <fieldset>
+            <legend>Seleccione la operación</legend>
+            <label for="Suma">Suma</label>
+            <input type="radio" id="Suma" name="operacion" value="Suma" required>
+            
+            <label for="Resta">Resta</label>
+            <input type="radio" id="Resta" name="operacion" value="Resta">
+            
+            <label for="Producto">Producto</label>
+            <input type="radio" id="Producto" name="operacion" value="Producto">
+            
+            <label for="Cociente">Cociente</label>
+            <input type="radio" id="Cociente" name="operacion" value="Cociente">
+        </fieldset>
+        <button type="submit">Enviar Datos</button>
+
+    </form>
+</body>
+</html>

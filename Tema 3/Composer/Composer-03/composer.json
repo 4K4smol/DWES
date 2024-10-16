@@ -1,0 +1,24 @@
+{
+    "name": "ecl/02-composer",
+    "description": "Ejercicio segundo composer",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Etsiu7",
+            "email": "eloycuesta@hotmail.es"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "hackzilla/password-generator": "^1.0"
+    },
+    "scripts": {
+		"start": "php -S localhost:8001 -t public"
+	},
+    "autoload": {
+        "psr-4": {
+            "MiAplicacion\\": "App/"
+        }
+    }
+    
+}
