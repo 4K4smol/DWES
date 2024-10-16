@@ -10,15 +10,18 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "hackzilla/password-generator": "^1.0"
+        "hackzilla/password-generator": "^1.7"
     },
     "scripts": {
 		"start": "php -S localhost:8001 -t public"
 	},
     "autoload": {
         "psr-4": {
-            "MiAplicacion\\": "App/"
+            "App\\": "App/"
         }
+    },
+    "config": {
+        "vendor-dir": "libreria"
     }
     
 }

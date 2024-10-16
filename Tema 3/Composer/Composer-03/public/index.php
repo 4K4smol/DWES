@@ -1,12 +1,12 @@
 <?php
-require '../vendor/autoload.php';
+require '../libreria/autoload.php';
 
 use App\Clases\AdaptadorGeneradorPassword;
 
 $mensaje = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $longitud = $_POST['Longitud'];
+    $longitud = (int) $_POST['Longitud']; // Convertir la longitud a entero
     $incluirMayusculas = isset($_POST['Mayus']);
     $incluirMinusculas = isset($_POST['Min']);
     $incluirNumeros = isset($_POST['Numeros']);
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label for="Simbolos">Símbolos</label>
             <input type="checkbox" id="Simbolos" name="Simbolos"><br><br>
             <label for="Longitud">Longitud</label>
-            <input type="number" id="Longitud" name="Longitud" min="4" required><br>
+            <input type="number" id="Longitud" name="Longitud" required><br>
             <br>
             <button type="submit">Generar Contraseña</button>
         </fieldset>
