@@ -1,0 +1,19 @@
+{
+    "name": "cic/hoja03_composer_02",
+    "description": "este proyecto crea un formulario de contacto y envia un correo electrónico",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "MiAplicacion\\": "app/"
+        }
+    },
+	"minimum-stability": "stable",
+
+    "require": {
+        "phpmailer/phpmailer": "^6.8"
+    },
+    "scripts": {
+		"start": "php -S localhost:8001 -t public"
+	}
+
+}
