@@ -20,13 +20,12 @@
             }
             echo "</table>";
             // Botón para actualizar
-            echo "<br><input type='hidden' name='marcaSeleccionada' value='$marcaSeleccionada'>";
+            echo "<br><input type='hidden' name='aaaa' value='$marcaSeleccionada'>";
             echo "<input type='submit' name='actualizar' value='actualizar'>";
             echo "</form>";
         }
     }
     
-
 
 ?>
 
@@ -59,6 +58,12 @@
         $marcaSeleccionada = $_POST['marca'];
         mostrarModelos($marcaSeleccionada, $coches);
     }
+
+    if (isset($_POST['actualizar'])) {
+        $aaaa = $_POST['aaaa'];
+        echo $aaaa;
+    }
+
     
     ?>
 </body>

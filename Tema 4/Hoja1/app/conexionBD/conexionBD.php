@@ -1,10 +1,8 @@
 <?php
-
 namespace App\conexionBD;
+
 use PDO;
 use PDOException;
-
-
 
 $dotenv = \Dotenv\Dotenv::createImmutable(dirname(__DIR__,2));
 $dotenv->load();

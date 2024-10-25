@@ -18,7 +18,10 @@
     "autoload": {
         "psr-4": {
             "App\\": "App/"
-        }
+        },
+        "files":[
+            "App/clase.php"
+        ]
     },
     "config": {
         "vendor-dir": "libreria"
