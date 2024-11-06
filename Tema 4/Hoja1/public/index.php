@@ -13,11 +13,11 @@
    
     $connection = conexionBD::getConnection();
  
-    if ($connection instanceof PDO) {
-        echo 'Conexión establecida correctamente<br>';
-    } else {
-        echo 'Error en la conexión';
-    }
+    // if ($connection instanceof PDO) {
+    //     echo 'Conexión establecida correctamente<br>';
+    // } else {
+    //     echo 'Error en la conexión';
+    // }
 
     $equipos = funcionesBD::getEquipos($connection);
     if(isset($_POST['equipos'])){
@@ -39,22 +39,41 @@
             ?>
         </select>
         <br><br>
-        <button type="submit" name="Mostrar">Mostrar</button>
+         <button type="submit" name="Mostrar">Mostrar</button>
     </form>
     <hr>
 
-    <?php 
-        
+    <?php
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Mostrar'])) {
 
-            echo "<table><tr><td>NOMBRE<hr></td><td>PESO<hr></td></tr>";
-            foreach($jugadores as $jugador){
-                echo "<tr><td>{$jugador['nombre']}</td><td>{$jugador['peso']}</td></tr>";
-            }
-            echo "</table>";
-
+            echo 
+            "<form method='post'>
+                    <table>
+                        <tr>
+                            <td>NOMBRE<hr></td>
+                            <td>PESO<hr></td>
+                        </tr>";
+                foreach($jugadores as $jugador){
+                    echo 
+                        "<tr>
+                            <td>{$jugador['nombre']}</td>
+                            <td><input type='number' name='pesos[]' value='{$jugador['peso']}'> KG</td>
+                        </tr>";
+                        //array nombres
+                        $nombres=$jugador['nombres'];
+                }
+            echo 
+                    "</table>
+                    <button type='submit' name='actualizar'>Actualizar</button>
+                    <input type='hidden' name='nombres[]'>
+            </form>";
         }
-    
+        
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['actualizar'])) {
+            $pesos = [$_POST['pesos']];
+            print_r($pesos);
+            print_r($nombres);
+        }
     ?>
 
 
@@ -76,16 +95,21 @@
         </select>
         <h3>Datos del nuevo Jugador</h3>
         <hr>
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre"><br><br>
-        <label for="procedencia">Procedencia:</label>
-        <input type="text" id="procedencia" name="procedencia"><br><br>
-        <label for="altura">Altura:</label>
-        <input type="number" id="altura" name="altura"><br><br>
-        <label for="peso">Peso:</label>
-        <input type="number" id="peso" name="peso"><br><br>
-        <label for="posicion">Posicion:</label>
-        <input type="text" id="posicion" name="posicion"><br><br>
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre"><br><br>
+
+            <label for="procedencia">Procedencia:</label>
+            <input type="text" id="procedencia" name="procedencia"><br><br>
+
+            <label for="altura">Altura:</label>
+            <input type="number" id="altura" name="altura"><br><br>
+
+            <label for="peso">Peso:</label>
+            <input type="number" id="peso" name="peso"><br><br>
+
+            <label for="posicion">Posicion:</label>
+            <input type="text" id="posicion" name="posicion"><br><br>
+            
         <button type="submit" name="realizar">Realizar traspaso</button>
     </form>
     

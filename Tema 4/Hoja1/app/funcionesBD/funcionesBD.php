@@ -36,31 +36,31 @@ class funcionesBD{
         }
     }
 
-    public static function darBaja(PDO $connection, $jugador){
+    public static function darBaja(PDO $connection, $jugador) {
         try {
-            $queryUpdate = "UPDATE `estadisticas` e
-            JOIN `jugadores` j ON e.`jugador` = j.`codigo`
-            SET 
-            e.`puntos_por_partido` = NULL,
-            e.`asistencias_por_partido` = NULL,
-            e.`tapones_por_partido` = NULL,
-            e.`rebotes_por_partido` = NULL
-            WHERE j.`nombre` = :nombre";
-
-            $stmtUpdate = $connection->prepare($queryUpdate);
-            $stmtUpdate->execute([':nombre' => $jugador]);
-
-        // Eliminar al jugador
-        $queryDelete = "DELETE FROM `jugadores` WHERE `nombre` = :nombre";
-        $stmtDelete = $connection->prepare($queryDelete);
-        $stmtDelete->execute([':nombre' => $jugador]);
-
-        echo "El jugador ha sido dado de baja exitosamente.";
-
+            $connection->beginTransaction();
+    
+            // Eliminar estadísticas relacionadas
+            $queryDeleteStats = "DELETE e FROM `estadisticas` e
+                                 JOIN `jugadores` j ON e.`jugador` = j.`codigo`
+                                 WHERE j.`nombre` = :nombre";
+            $stmtDeleteStats = $connection->prepare($queryDeleteStats);
+            $stmtDeleteStats->execute([':nombre' => $jugador]);
+    
+            // Eliminar al jugador
+            $queryDeletePlayer = "DELETE FROM `jugadores` WHERE `nombre` = :nombre";
+            $stmtDeletePlayer = $connection->prepare($queryDeletePlayer);
+            $stmtDeletePlayer->execute([':nombre' => $jugador]);
+    
+            $connection->commit();
+            echo "El jugador ha sido dado de baja exitosamente.";
+    
         } catch (PDOException $e) {
-        echo 'Error al dar de baja al jugador: ' . $e->getMessage();
+            $connection->rollBack();
+            echo 'Error al dar de baja al jugador: ' . $e->getMessage();
         }
     }
+    
 
     public static function traspaso(PDO $connection, $nombre, $procedencia, $altura, $peso, $posicion, $nombreEquipo) {
         try {
@@ -87,6 +87,25 @@ class funcionesBD{
             echo 'Error al insertar jugador: ' . $e->getMessage();
         }
     }
+
+    public static function actualizarPesos(PDO $connection)
+    {
+        try{
+            //consulta para actualizar pesos de jugadores
+            
+
+
+
+
+            echo "Se han actualizado los pesos";
+        }catch(PDOException $e){
+            echo 'Error al actualizar jugadores ' . $e->getMessage();
+        }
+
+        
+
+    }
+
 }
 
 ?>
