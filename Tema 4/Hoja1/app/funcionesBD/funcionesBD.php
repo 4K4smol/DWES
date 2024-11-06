@@ -88,22 +88,25 @@ class funcionesBD{
         }
     }
 
-    public static function actualizarPesos(PDO $connection)
+    public static function actualizarPesos(PDO $connection, $equipo, $nuevosValores, $numeroLista)
     {
-        try{
-            //consulta para actualizar pesos de jugadores
-            
-
-
-
-
-            echo "Se han actualizado los pesos";
-        }catch(PDOException $e){
-            echo 'Error al actualizar jugadores ' . $e->getMessage();
-        }
-
-        
-
+            try{
+                //consulta para actualizar pesos de jugadores
+                $queryUpdatePesos = "UPDATE jugadores
+                                    SET peso = :nuevoPeso
+                                    WHERE nombre_equipo = :equipo LIMIT 1 OFFSET :numero";
+                $stmtUpdatePesos = $connection->prepare($queryUpdatePesos);
+                for ($i = 0; $i < count($numeroLista); $i++){
+                    $stmtUpdatePesos->execute([
+                        ':nuevoPeso' => $nuevosValores[$i],
+                        ':equipo' => $equipo,
+                        ':numero' => $numeroLista[$i]
+                    ]);             
+                }
+                echo "Se han actualizado los pesos";
+            }catch(PDOException $e){
+                echo 'Error al actualizar jugadores ' . $e->getMessage();
+            }
     }
 
 }

@@ -45,7 +45,6 @@
 
     <?php
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Mostrar'])) {
-
             echo 
             "<form method='post'>
                     <table>
@@ -57,23 +56,34 @@
                     echo 
                         "<tr>
                             <td>{$jugador['nombre']}</td>
-                            <td><input type='number' name='pesos[]' value='{$jugador['peso']}'> KG</td>
+                            <td><input type='number' name='nuevosPesos[]' value='{$jugador['peso']}'> KG</td>
                         </tr>";
-                        //array nombres
-                        $nombres=$jugador['nombres'];
+                        $pesos[]=$jugador['peso'];
                 }
             echo 
                     "</table>
                     <button type='submit' name='actualizar'>Actualizar</button>
-                    <input type='hidden' name='nombres[]'>
+                    <input type='hidden' name='pesos' value='" . htmlspecialchars(json_encode($pesos)) . "'>
             </form>";
         }
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['actualizar'])) {
-            $pesos = [$_POST['pesos']];
-            print_r($pesos);
-            print_r($nombres);
+            $nuevosPesos = $_POST['nuevosPesos'];
+            $pesos = json_decode($_POST['pesos']);
+            $cambiarPesoJugador=[];
+            $resultado = array_diff($nuevosPesos, $pesos);
+            $claves = array_keys($resultado);
+            
+            if(isset($_POST['equipos'])){
+                $equipo=$_POST['equipos'];
+            }
+
+            echo $resultado[1];
+
         }
+    
+
+    
     ?>
 
 
