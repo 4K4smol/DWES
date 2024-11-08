@@ -39,12 +39,14 @@
             ?>
         </select>
         <br><br>
-         <button type="submit" name="Mostrar">Mostrar</button>
+        <input type="hidden" name="nombre_equipo" value="<?= isset($_POST['equipos']) ? htmlspecialchars($_POST['equipos']) : '' ?>";>
+        <button type="submit" name="Mostrar">Mostrar</button>
     </form>
     <hr>
 
     <?php
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Mostrar'])) {
+            $lista_jugadores_pesos=[];
             echo 
             "<form method='post'>
                     <table>
@@ -58,28 +60,35 @@
                             <td>{$jugador['nombre']}</td>
                             <td><input type='number' name='nuevosPesos[]' value='{$jugador['peso']}'> KG</td>
                         </tr>";
-                        $pesos[]=$jugador['peso'];
+                        $lista_jugadores_pesos[] = [
+                            'nombre' => $jugador['nombre'],
+                            'peso' => $jugador['peso']
+                        ];
                 }
             echo 
                     "</table>
                     <button type='submit' name='actualizar'>Actualizar</button>
-                    <input type='hidden' name='pesos' value='" . htmlspecialchars(json_encode($pesos)) . "'>
+                    <input type='hidden' name='lista_jugadores_pesos' value='" . htmlspecialchars(json_encode($lista_jugadores_pesos)) . "'>
+
             </form>";
         }
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['actualizar'])) {
-            $nuevosPesos = $_POST['nuevosPesos'];
-            $pesos = json_decode($_POST['pesos']);
-            $cambiarPesoJugador=[];
-            $resultado = array_diff($nuevosPesos, $pesos);
-            $claves = array_keys($resultado);
+        
             
-            if(isset($_POST['equipos'])){
-                $equipo=$_POST['equipos'];
+            $lista_jugadores_pesos = json_decode($_POST['lista_jugadores_pesos']);
+            $nuevos_pesos = $_POST['nuevosPesos'];
+
+            foreach ($lista_jugadores_pesos as $index => $jugador) {
+                if (isset($nuevos_pesos[$index])) {
+                    // Actualizar el peso del jugador con el nuevo peso correspondiente
+                    $jugador->peso = $nuevos_pesos[$index];
+                }
             }
-
-            echo $resultado[1];
-
+            
+            foreach ($lista_jugadores_pesos as $index => $jugador){
+                funcionesBD::actualizarPesos($connection, $jugador->nombre, $jugador->peso);
+            }
         }
     
 
@@ -133,7 +142,7 @@
                 isset($_POST['posicion'])
                 ){
 
-                if(isset($_POST['equipos'])){
+                if(isset($_POST['equipo'])){
                     $equipoCopia=$_POST['equipos'];
                 }
                     
