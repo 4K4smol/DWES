@@ -21,6 +21,29 @@ class funcionesBD{
         }
     }
 
+    public static function getEquipoPorJugador(PDO $connection,$jugador){
+        try {
+            // consulta
+            $query = 'SELECT equipos.nombre 
+            FROM equipos 
+            inner join jugadores 
+            on equipos.nombre=jugadores.nombre_equipo 
+            where jugadores.nombre=:nombre';
+
+            $stmtQuery = $connection->prepare($query);
+
+            $stmtQuery->execute([':nombre' => $jugador]);
+            $equipo = $stmtQuery->fetch(PDO::FETCH_ASSOC);
+            return $equipo;
+        
+
+        } catch (PDOException $e) {
+            echo 'Error al obtener equipos: ' . $e->getMessage();
+            echo 'Se ha producido un error al obtener los equipos.';
+            return [];
+        }
+    }
+
     public static function getJugadoresEquipo(PDO $connection, $equipo) {
         try {
             $query = "SELECT * FROM jugadores where nombre_equipo = '$equipo'"; // consulta
@@ -88,25 +111,24 @@ class funcionesBD{
         }
     }
 
-    public static function actualizarPesos(PDO $connection, $equipo, $nuevosValores, $numeroLista)
+    public static function actualizarPesos(PDO $connection, $nombre, $peso)
     {
-            try{
-                //consulta para actualizar pesos de jugadores
-                $queryUpdatePesos = "UPDATE jugadores
-                                    SET peso = :nuevoPeso
-                                    WHERE nombre_equipo = :equipo LIMIT 1 OFFSET :numero";
-                $stmtUpdatePesos = $connection->prepare($queryUpdatePesos);
-                for ($i = 0; $i < count($numeroLista); $i++){
-                    $stmtUpdatePesos->execute([
-                        ':nuevoPeso' => $nuevosValores[$i],
-                        ':equipo' => $equipo,
-                        ':numero' => $numeroLista[$i]
-                    ]);             
-                }
-                echo "Se han actualizado los pesos";
-            }catch(PDOException $e){
-                echo 'Error al actualizar jugadores ' . $e->getMessage();
-            }
+        try {
+            // Consulta para actualizar peso
+            $query = "UPDATE jugadores
+            SET peso = :peso
+            WHERE nombre = :nombre";
+
+            $stmt = $connection->prepare($query);
+            $stmt->execute([
+                ':nombre' => $nombre,
+                ':peso' => $peso,
+            ]);
+
+            echo "El jugador ha sido actualizado exitosamente."."<br>";
+        } catch (PDOException $e) {
+            echo 'Error al insertar jugador: ' . $e->getMessage();
+        }
     }
 
 }
