@@ -14,7 +14,7 @@
 
         public function getProducto(PDO $connection)
         {
-            // $query = 
+            // $query =  "SELECT  FROM "
 
 
 

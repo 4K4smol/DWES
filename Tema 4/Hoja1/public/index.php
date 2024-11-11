@@ -6,13 +6,13 @@
     <title>Ejercicio 1 Base de Datos</title>
 </head>
 <body>
-    <?php 
+    <?php
     require_once '../vendor/autoload.php';
     use App\funcionesBD\funcionesBD;
     use App\conexionBD\conexionBD;
-   
+
     $connection = conexionBD::getConnection();
- 
+
     // if ($connection instanceof PDO) {
     //     echo 'Conexión establecida correctamente<br>';
     // } else {
@@ -31,7 +31,7 @@
     <form method="post">
         <label for="equipos">Equipo:</label>
         <select id="equipos" name="equipos">
-            <?php 
+            <?php
                 foreach ($equipos as $equipo) {
                     $selected = (isset($_POST["equipos"]) && $_POST["equipos"] === $equipo["nombre"]) ? 'selected' : '';
                     echo "<option value='{$equipo['nombre']}' $selected>{$equipo['nombre']}</option>";
@@ -47,7 +47,7 @@
     <?php
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Mostrar'])) {
             $lista_jugadores_pesos=[];
-            echo 
+            echo
             "<form method='post'>
                     <table>
                         <tr>
@@ -55,7 +55,7 @@
                             <td>PESO<hr></td>
                         </tr>";
                 foreach($jugadores as $jugador){
-                    echo 
+                    echo
                         "<tr>
                             <td>{$jugador['nombre']}</td>
                             <td><input type='number' name='nuevosPesos[]' value='{$jugador['peso']}'> KG</td>
@@ -65,34 +65,32 @@
                             'peso' => $jugador['peso']
                         ];
                 }
-            echo 
+            echo
                     "</table>
                     <button type='submit' name='actualizar'>Actualizar</button>
                     <input type='hidden' name='lista_jugadores_pesos' value='" . htmlspecialchars(json_encode($lista_jugadores_pesos)) . "'>
 
             </form>";
         }
-        
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['actualizar'])) {
-        
-            
+
+
             $lista_jugadores_pesos = json_decode($_POST['lista_jugadores_pesos']);
             $nuevos_pesos = $_POST['nuevosPesos'];
 
             foreach ($lista_jugadores_pesos as $index => $jugador) {
                 if (isset($nuevos_pesos[$index])) {
-                    // Actualizar el peso del jugador con el nuevo peso correspondiente
-                    $jugador->peso = $nuevos_pesos[$index];
+                    // Actualizar si el peso es diferente
+                    if($jugador->peso!=$nuevos_pesos[$index]){
+                        funcionesBD::actualizarPesos($connection,$jugador->nombre,$nuevos_pesos[$index]);
+                    }
                 }
             }
-            
-            foreach ($lista_jugadores_pesos as $index => $jugador){
-                funcionesBD::actualizarPesos($connection, $jugador->nombre, $jugador->peso);
-            }
         }
-    
 
-    
+
+
     ?>
 
 
@@ -107,7 +105,7 @@
                 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Mostrar'])) {
                     foreach($jugadores as $jugador){
                         $selected = (isset($_POST["jugadorBaja"]) && $_POST["jugadorBaja"] === $jugador["nombre"]) ? 'selected' : '';
-                        echo "<option value='{$jugador['nombre']}' $selected>{$jugador['nombre']}</option>";                
+                        echo "<option value='{$jugador['nombre']}' $selected>{$jugador['nombre']}</option>";
                     }
                 }
             ?>
@@ -128,10 +126,10 @@
 
             <label for="posicion">Posicion:</label>
             <input type="text" id="posicion" name="posicion"><br><br>
-            
+
         <button type="submit" name="realizar">Realizar traspaso</button>
     </form>
-    
+
     <?php
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['realizar'])) {
             if(
@@ -145,21 +143,16 @@
                 if(isset($_POST['equipo'])){
                     $equipoCopia=$_POST['equipos'];
                 }
-                    
+
                 if(isset($_POST['jugadorBaja'])){
+                    //eliminar
                     funcionesBD::darBaja($connection, $_POST['jugadorBaja']);
-                    funcionesBD::traspaso(
-                        $connection,
-                        $_POST['nombre'],
-                        $_POST['procedencia'],
-                        $_POST['altura'],
-                        $_POST['peso'],
-                        $_POST['posicion'],
-                        $equipoCopia);
+                    //Insertar
+                    funcionesBD::traspaso($connection,$_POST['nombre'],$_POST['procedencia'],$_POST['altura'],$_POST['peso'],$_POST['posicion'],$equipoCopia);
                 }
             }
         }
-        
+
     ?>
 
 </body>

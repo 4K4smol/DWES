@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reserva</title>
-    <link rel="stylesheet" href="../src/css/styles.css"> <!-- Ruta al CSS -->
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
 
 </head>
 <?php
@@ -16,6 +15,7 @@ use App\funcionesBD;
 
 $connection = conexionBD::getConnection();
 $asientos = funcionesBD::getPlazas($connection);
+
 ?>
 <body>
     <h1>Reserva de asiento</h1>
@@ -31,8 +31,11 @@ $asientos = funcionesBD::getPlazas($connection);
         <label for="asiento">Asiento:</label>
         <select name="asiento" id="asiento">
             <?php
-                foreach($asientos as $asiento){
-                    echo '<option value="' . htmlspecialchars($asiento["numero"]) . '">' . htmlspecialchars($asiento["numero"]).' '.'('.htmlspecialchars($asiento["precio"]).'€))' . '</option>';
+                foreach($asientos as $asiento) {
+                    if (isset($_POST['reservar']) && $_POST['asiento'] == $asiento['numero']) {
+                        continue;
+                    }
+                    echo '<option value="' . htmlspecialchars($asiento["numero"]) . '">Plaza ' . htmlspecialchars($asiento["numero"]) . ' (' . htmlspecialchars($asiento["precio"]) . '€)</option>';
                 }
             ?>
         </select>
@@ -53,5 +56,5 @@ $asientos = funcionesBD::getPlazas($connection);
             funcionesBD::realizarReserva($connection,$nombre,$dni,$asiento);
         }
     }
-    
+
 ?>

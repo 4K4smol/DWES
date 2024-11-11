@@ -12,7 +12,7 @@ class funcionesBD{
             $resultado = $connection->query($query);
             // Retorna un array asociativo con los resultados
             return $resultado->fetchAll(PDO::FETCH_ASSOC);
-        
+
 
         } catch (PDOException $e) {
             echo 'Error al obtener equipos: ' . $e->getMessage();
@@ -24,10 +24,10 @@ class funcionesBD{
     public static function getEquipoPorJugador(PDO $connection,$jugador){
         try {
             // consulta
-            $query = 'SELECT equipos.nombre 
-            FROM equipos 
-            inner join jugadores 
-            on equipos.nombre=jugadores.nombre_equipo 
+            $query = 'SELECT equipos.nombre
+            FROM equipos
+            inner join jugadores
+            on equipos.nombre=jugadores.nombre_equipo
             where jugadores.nombre=:nombre';
 
             $stmtQuery = $connection->prepare($query);
@@ -35,7 +35,7 @@ class funcionesBD{
             $stmtQuery->execute([':nombre' => $jugador]);
             $equipo = $stmtQuery->fetch(PDO::FETCH_ASSOC);
             return $equipo;
-        
+
 
         } catch (PDOException $e) {
             echo 'Error al obtener equipos: ' . $e->getMessage();
@@ -50,7 +50,7 @@ class funcionesBD{
             $resultado = $connection->query($query);
             // Retorna un array asociativo con los resultados
             return $resultado->fetchAll(PDO::FETCH_ASSOC);
-        
+
 
         } catch (PDOException $e) {
             echo 'Error al obtener equipos: ' . $e->getMessage();
@@ -62,28 +62,28 @@ class funcionesBD{
     public static function darBaja(PDO $connection, $jugador) {
         try {
             $connection->beginTransaction();
-    
+
             // Eliminar estadísticas relacionadas
             $queryDeleteStats = "DELETE e FROM `estadisticas` e
                                  JOIN `jugadores` j ON e.`jugador` = j.`codigo`
                                  WHERE j.`nombre` = :nombre";
             $stmtDeleteStats = $connection->prepare($queryDeleteStats);
             $stmtDeleteStats->execute([':nombre' => $jugador]);
-    
+
             // Eliminar al jugador
             $queryDeletePlayer = "DELETE FROM `jugadores` WHERE `nombre` = :nombre";
             $stmtDeletePlayer = $connection->prepare($queryDeletePlayer);
             $stmtDeletePlayer->execute([':nombre' => $jugador]);
-    
+
             $connection->commit();
             echo "El jugador ha sido dado de baja exitosamente.";
-    
+
         } catch (PDOException $e) {
             $connection->rollBack();
             echo 'Error al dar de baja al jugador: ' . $e->getMessage();
         }
     }
-    
+
 
     public static function traspaso(PDO $connection, $nombre, $procedencia, $altura, $peso, $posicion, $nombreEquipo) {
         try {

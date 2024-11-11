@@ -18,7 +18,7 @@ $plazas = funcionesBD::getPlazas($connection);
         <?php
         foreach ($plazas as $plaza) {
             echo '<label for="' . $plaza['numero'] . '">Plaza ' . $plaza['numero'] . ': </label>';
-            echo '<input type="number" id="' . $plaza['numero'] . '" name="precio_' . $plaza['numero'] . '" step="0.01" value="' . $plaza['precio'] . '"> €<br><br>';
+            echo '<input type="number" id="' . $plaza['numero'] . '" name="precio_' . $plaza['numero'] . '" step="0.01" value="' . (isset($_POST['actualizar']) ? $_POST['precio_' . $plaza['numero']] : $plaza['precio']) . '"> €<br><br>';
         }
         ?>
         <button type="submit" name="actualizar">Actualizar</button>

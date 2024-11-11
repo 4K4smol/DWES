@@ -26,7 +26,7 @@ $connection = conexionBD::getConnection();
         }
 
     ?>
-    
+
 
 
     <p><a href="index.php">Página de incio</a></p>
