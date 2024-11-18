@@ -19,7 +19,6 @@ class Alimentacion extends Producto {
         return parent::__toString() .
             //añade un cero a la izquierda si es necesario (str_pad)
             "<br> Mes de caducidad del producto -> " . str_pad($this->mesCaducidad, 2, '0', STR_PAD_LEFT) .
-
             "<br> Año de caducidad del producto -> " . $this->anioCaducidad;
     }
 

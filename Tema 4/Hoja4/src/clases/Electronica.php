@@ -3,13 +3,13 @@
     namespace App\clases;
 
     use App\clases\Producto;
-    use DateTime;
 
     class Electronica extends Producto{
 
-        private DateTime $plazaGarantia;
+        //Meses
+        private int $plazaGarantia;
 
-        public function __construct($codigo, $precio, $nombre, $categoria,DateTime $plazaGarantia)
+        public function __construct($codigo, $precio, $nombre, $categoria,int $plazaGarantia)
         {
             parent::__construct($codigo,$precio,$nombre,$categoria);
             $this->plazaGarantia = $plazaGarantia;
@@ -18,15 +18,15 @@
         public function __toString(): string
         {
             return parent::__toString() .
-            "<br> Plazo de Garantia del producto -> " . $this->plazaGarantia->format('d-m-Y');
+            "<br> Plazo de Garantia del producto -> " . $this->plazaGarantia . " meses";
         }
 
-        public function setPlazaGarantia(DateTime $plazaGarantia):void
+        public function setPlazaGarantia(int $plazaGarantia):void
         {
             $this->plazaGarantia = $plazaGarantia;
         }
 
-        public function getPlazaGarantia() : DateTime
+        public function getPlazaGarantia() : int
         {
             return $this->plazaGarantia;
         }

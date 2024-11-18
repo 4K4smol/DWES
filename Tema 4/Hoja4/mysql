@@ -1,0 +1,52 @@
+
+USE dwes_04_supermercado;
+
+CREATE TABLE productos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    codigo VARCHAR(50) NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
+    precio DECIMAL(10, 2) NOT NULL,
+    categoria_id INT NOT NULL,
+    tipo ENUM('alimentacion', 'electronica') NOT NULL,
+    FOREIGN KEY (categoria_id) REFERENCES categorias(id)
+);
+
+
+CREATE TABLE alimentaciones (
+    id INT PRIMARY KEY,
+    mesCaducidad INT NOT NULL,
+    anioCaducidad INT NOT NULL,
+    FOREIGN KEY (id) REFERENCES productos(id)
+);
+
+
+CREATE TABLE electronicas (
+    id INT PRIMARY KEY,
+    plazoGarantia INT NOT NULL,
+    FOREIGN KEY (id) REFERENCES productos(id)
+);
+
+CREATE TABLE categorias (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL
+);
+
+INSERT INTO categorias (nombre) VALUES
+('Bebidas'),
+('Snacks'),
+('Electrodomésticos'),
+('Electrónica');
+
+INSERT INTO productos (codigo, nombre, precio, categoria_id, tipo) VALUES
+('A001', 'Coca Cola', 1.50, 1, 'alimentacion'),
+('A002', 'Patatas Fritas', 2.00, 2, 'alimentacion'),
+('E001', 'Lavadora LG', 299.99, 3, 'electronica'),
+('E002', 'Televisor Samsung', 499.99, 4, 'electronica');
+
+INSERT INTO alimentaciones (id, mesCaducidad, anioCaducidad) VALUES
+(1, 12, 2024), -- Coca Cola
+(2, 6, 2023);  -- Patatas Fritas
+
+INSERT INTO electronicas (id, plazoGarantia) VALUES
+(3, 24), -- Lavadora LG (2 años de garantía)
+(4, 36); -- Televisor Samsung (3 años de garantía)

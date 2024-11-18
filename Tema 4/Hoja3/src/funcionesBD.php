@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Cake\Database\Query;
 use PDO;
 use PDOException;
 
@@ -83,7 +82,6 @@ class funcionesBD{
     }
 
     public static function nuevosPrecios(PDO $connection, $plaza, $precio){
-        
         try{
             $queryCambiarPrecio = "UPDATE dwes_03_funicular.plazas SET precio = :precio  WHERE numero = :plaza";
             $stmt = $connection->prepare($queryCambiarPrecio);

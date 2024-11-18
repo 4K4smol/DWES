@@ -30,6 +30,46 @@
             return $mensaje;
         }
 
+        public function setCodigo(string $codigo): void
+        {
+            $this->codigo = $codigo;
+        }
+
+        public function getCodigo(): string
+        {
+            return $this->codigo;
+        }
+
+        public function setPrecio(float $precio) : void
+        {
+            $this->precio = $precio;
+        }
+
+        public function getPrecio(): float
+        {
+            return $this->precio;
+        }
+
+        public function setNombre(string $nombre):void
+        {
+            $this->nombre = $nombre;
+        }
+
+        public function getNombre(): string
+        {
+            return $this->nombre;
+        }
+
+        public function setCategoria(Categoria $categoria): void
+        {
+            $this->categoria = $categoria;
+        }
+
+        public function getCategoria(): Categoria
+        {
+            return $this->categoria;
+        }
+
     }
 
 
