@@ -6,7 +6,7 @@ use PDO;
 use PDOException;
 
 class ConexionBD {
-    private const DNS = "mysql:host=localhost;dbname=dwes_04_supermercado";
+    private const DNS = "mysql:host=localhost;port=3307;dbname=dwes_04_supermercado";
     private const USUARIO = "root";
     private const PASSWORD = "mysql";
     private static ?ConexionBD $instance = null;
@@ -65,7 +65,8 @@ class ConexionBD {
     public function getProductosCategoria($categoria_id): array
     {
         try {
-            $query = "select productos.nombre as NombreProducto, productos.codigo, productos.precio, categorias.nombre from categorias inner join productos on categorias.id=productos.categoria_id where categoria_id = :categoria_id;";
+            $query = "select productos.nombre as NombreProducto, productos.codigo, productos.precio, categorias.nombre from categorias 
+            inner join productos on categorias.id=productos.categoria_id where categoria_id = :categoria_id;";
             $stmtQuery = $this->conexion->prepare($query);
             $stmtQuery->execute([':categoria_id' => $categoria_id]);
             return $stmtQuery -> fetchAll(PDO::FETCH_ASSOC);
