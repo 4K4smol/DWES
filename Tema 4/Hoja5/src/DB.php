@@ -6,7 +6,7 @@ use PDO;
 use PDOException;
 
 class DB {
-    private const DNS = "mysql:host=localhost;port=3307;dbname=dwes_05_hospital";
+    private const DNS = "mysql:host=localhost;port=3306;dbname=dwes_05_hospital";
     private const USUARIO = "root";
     private const PASSWORD = "mysql";
     private static ?DB $instance = null;

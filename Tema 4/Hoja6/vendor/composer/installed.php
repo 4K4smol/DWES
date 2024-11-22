@@ -3,7 +3,7 @@
         'name' => 'ecl/06-bd',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '3f04b39fed5aab276208feee3dc7a130978168d6',
+        'reference' => '308f099773bf29ebf6071e8b1d7a5d443ba38389',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'ecl/06-bd' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '3f04b39fed5aab276208feee3dc7a130978168d6',
+            'reference' => '308f099773bf29ebf6071e8b1d7a5d443ba38389',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
