@@ -1,65 +1,74 @@
 <?php
-require_once '../vendor/autoload.php';
-require_once 'helpers/helper.php';
+
+require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\Clases\PDOCrearProducto;
+use App\Clases\CrearProducto;
+
+$errores = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Captura y limpieza de datos
-    $nombre = $_POST['nombre'];
-    $precio = $_POST['precio'];
-    $descripcion = $_POST['descripcion'];
+    // 1. Limpiar datos de entrada
+    $nombre = htmlspecialchars($_POST['nombre']);
+    $precio = htmlspecialchars($_POST['precio']);
+    $descripcion = htmlspecialchars($_POST['descripcion']);
     $imagen = $_FILES['imagen'];
 
-    $nombre = limpiarTexto($nombre);
-    $descripcion = limpiarTexto($descripcion);
-
-    // Validaciones
-    if (!validarRequerido($nombre) || !validarRequerido($precio) || !validarRequerido($descripcion)) {
-        die("Por favor, rellena todos los datos.");
+    // 2. Validaciones
+    if (!validarCamposRequeridos($nombre, $precio, $descripcion, $imagen)) {
+        $errores[] = "Por favor, rellena todos los campos obligatorios.";
     }
 
-    if (!validarNumerico($precio)) {
-        die("Por favor, introduce un precio válido.");
+    if (!validarPrecio($precio)) {
+        $errores[] = "El precio debe ser un número válido.";
     }
 
-    if (!validarSubidaFichero($imagen)) {
-        die("No se puede procesar el archivo.");
+    if (!validarSubidaArchivo($imagen)) {
+        $errores[] = "Error al subir la imagen.";
     }
 
-    if (!validarFormatoImagen($imagen['type'])) {
-        die("El archivo no tiene una extensión válida.");
+    if (!validarFormatoImagen($imagen)) {
+        $errores[] = "La imagen debe ser en formato JPEG o PNG.";
     }
 
-    // Subida de la imagen
-    $rutaDestino = __DIR__ . '/productos/';
-    if (!is_dir($rutaDestino)) {
-        mkdir($rutaDestino, 0777, true);
+    limpiarEtiquetas($descripcion);
+
+    if (!empty($errores)) {
+        $erroresQuery = urlencode(implode(',', $errores));
+        redirect("index.php?errores={$erroresQuery}");
     }
 
-    $nombreImagen = uniqid() . '-' . basename($imagen['name']);
-    $rutaCompleta = $rutaDestino . $nombreImagen;
-
-    if (!move_uploaded_file($imagen['tmp_name'], $rutaCompleta)) {
-        die("No se puede procesar el archivo.");
+    // 3. Guardar la imagen en el directorio /productos
+    $directorioDestino = __DIR__ . '/../public/productos/';
+    if (!is_dir($directorioDestino)) {
+        mkdir($directorioDestino, 0755, true);
     }
 
-    // Crear el repositorio y guardar el producto
-    try {
-        $repositorio = new PDOCrearProducto();
-        $producto = [
-            ':nombre' => $nombre,
-            ':precio' => $precio,
-            ':descripcion' => $descripcion,
-            ':imagen' => $nombreImagen
-        ];
+    $nombreUnico = uniqid() . '-' . basename($imagen['name']);
+    $rutaImagen = $directorioDestino . $nombreUnico;
 
-        if ($repositorio->crear($producto)) {
-            echo "El producto ha sido dado de alta correctamente.";
-        } else {
-            die("No se ha podido guardar el producto en base de datos.");
-        }
-    } catch (PDOException $e) {
-        die("Error en la base de datos: " . $e->getMessage());
+    if (!move_uploaded_file($imagen['tmp_name'], $rutaImagen)) {
+        $errores[] = "No se pudo guardar la imagen.";
+        $erroresQuery = urlencode(implode(',', $errores));
+        redirect("index.php?errores={$erroresQuery}");
     }
+
+    // 4. Insertar el producto en la base de datos
+    $producto = [
+        ':nombre' => $nombre,
+        ':precio' => $precio,
+        ':descripcion' => $descripcion,
+        ':imagen' => $nombreUnico
+    ];
+
+    $repositorioProducto = new PDOCrearProducto();
+    $servicioCrearProducto = new CrearProducto($repositorioProducto);
+
+    if (!$servicioCrearProducto->crear($producto)) {
+        $errores[] = "No se pudo guardar el producto en la base de datos.";
+        $erroresQuery = urlencode(implode(',', $errores));
+        redirect("index.php?errores={$erroresQuery}");
+    }
+
+    redirect("index.php?mensaje=" . urlencode("Producto creado correctamente."));
 }

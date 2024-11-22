@@ -9,8 +9,8 @@
         "psr-4": {
             "App\\": "src/"
         },
-        "file": [
-            "helper.php"
+        "files": [
+            "Helpers/HelperValidacion.php"
         ]
     },
     "authors": [
