@@ -1,0 +1,15 @@
+select * from dwes06_productos.productos;
+
+drop database dwes06_productos;
+
+create database dwes_06_productos;
+use dwes_06_productos;
+
+CREATE TABLE productos (
+    id INT NOT NULL AUTO_INCREMENT,
+    nombre VARCHAR(100) NOT NULL,
+    precio DECIMAL(10,2) NOT NULL,
+    descripcion TEXT NOT NULL,
+    imagen VARCHAR(255) DEFAULT NULL,
+    PRIMARY KEY (id)
+);
