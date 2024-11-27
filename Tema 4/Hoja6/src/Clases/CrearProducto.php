@@ -4,7 +4,7 @@ namespace App\Clases;
 
 use App\Interfaces\RepositorioProducto;
 
-final class PDOProducto
+final class CrearProducto
 {
     private RepositorioProducto $repositorio;
 

@@ -3,11 +3,13 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\Clases\PDOCrearProducto;
-use App\Clases\PDOProducto;
+use App\Clases\CrearProducto;
 
 $repositorioProducto = new PDOCrearProducto();
-$servicioCrearProducto = new PDOProducto($repositorioProducto);
+$servicioCrearProducto = new CrearProducto($repositorioProducto);
 $productos = $servicioCrearProducto->index();
+
+var_dump($productos);
 
 $errores = [];
 $mensaje = '';
@@ -44,15 +46,12 @@ if (isset($_GET['mensaje'])) {
             </tr>
             <tr>
                 <?php
-                    foreach ($producto as $producto){
-                        echo '<td>$producto["nombre"]</td>';
+                    foreach ($productos as $producto){
+                        echo '<td>'.$producto["nombre"].'</td>';
                     }
                 ?>
             </tr>
         </table>
-
-
-
 
         <!-- Mostrar errores si existen -->
         <?php if (!empty($errores)): ?>

@@ -19,7 +19,7 @@ class PDOCrearProducto implements RepositorioProducto {
     public function crear(array $producto): bool
     {
         try {
-            $query = "INSERT INTO productos (nombre, precio, descripcion, imagen) 
+            $query = "INSERT INTO productos (nombre, precio, descripcion, imagen)
                     VALUES (:nombre, :precio, :descripcion, :imagen)";
             $stmt = $this->conexion->prepare($query);
 
