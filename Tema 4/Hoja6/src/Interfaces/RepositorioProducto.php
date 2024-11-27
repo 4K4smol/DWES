@@ -7,7 +7,7 @@ interface RepositorioProducto {
 
     public function index();
 
-    public function view(mixed $id): bool;
+    public function view($id);
 
-    public function delete(mixed $id): bool;
+    public function delete($id): bool;
 }

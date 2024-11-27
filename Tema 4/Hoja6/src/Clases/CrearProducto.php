@@ -24,8 +24,35 @@ final class CrearProducto
         return $this->repositorio->crear($producto);
     }
 
+    /**
+     * Llama al método `index` del producto
+     *
+     * @return array
+     */
     public function index()
     {
         return $this->repositorio->index();
+    }
+
+    /**
+     * Llama al método `view` del producto
+     *
+     * @param $id id del producto
+     * @return objeto producto
+     */
+    public function view($id)
+    {
+        return $this->repositorio->view($id);
+    }
+
+    /**
+     * Llama al método `delete` del producto
+     *
+     * @param $id id del producto
+     * @return bool
+     */
+    public function delete($id):bool
+    {
+        return $this->repositorio->delete($id);
     }
 }

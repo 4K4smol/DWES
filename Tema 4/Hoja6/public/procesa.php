@@ -1,9 +1,9 @@
 <?php
-
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use App\Clases\PDOCrearProducto;
 use App\Clases\CrearProducto;
+use App\Clases\PDOCrearProducto;
+use App\Clases\PDOProducto;
 
 $errores = [];
 
@@ -70,5 +70,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         redirect("index.php?errores={$erroresQuery}");
     }
 
-    redirect("index.php?mensaje=" . urlencode("Producto creado correctamente."));
+    redirect("index.php?mensaje=" . "Producto creado correctamente.");
 }

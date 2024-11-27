@@ -39,24 +39,27 @@ class PDOCrearProducto implements RepositorioProducto {
     public function index()
     {
         try {
-            $query = "SELECT productos.nombre, productos.precio, productos.descripcion, productos.imagen
+            $query = "SELECT productos.id,productos.nombre, productos.precio, productos.descripcion, productos.imagen
             FROM dwes_06_productos.productos";
 
             $stmt = $this->conexion->prepare($query);
             // Ejecutar la consulta
             if ($stmt->execute()) {
-                // Obtener TODOS LOS RESULTADOS (ALL) como un objeto
+                // Obtener TODOS LOS RESULTADOS (ALL) como un OBJETO
                 $productos = $stmt->fetchAll(PDO::FETCH_OBJ);
 
-                $productos = $stmt->fetch(PDO::FETCH_OBJ);
                 return $productos;
+            } else {
+                echo "ERROR AL EJECUTAR LA CONSULTA DE INDEX";
             }
         } catch (PDOException $e) {
             error_log("Error al consultar el index de productos: " . $e->getMessage());
         }
+
+        return null;
     }
 
-    public function view($id):bool
+    public function view($id)
     {
         try {
             $query = "SELECT productos.nombre, productos.precio, productos.descripcion, productos.imagen
@@ -88,15 +91,11 @@ class PDOCrearProducto implements RepositorioProducto {
 
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 
-            if ($stmt->execute()) {
-                return true;
-            }
-            return false;
+            return $stmt->execute();
         } catch (PDOException $e) {
             error_log("Error al consultar el producto con ID $id: " . $e->getMessage());
-            return null;
+            return false;
         }
-        return false;
     }
 
     /**
