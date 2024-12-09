@@ -1,6 +1,6 @@
 <?php return array(
     'root' => array(
-        'name' => 'ecl/ejercicio1_auth',
+        'name' => 'ecl/ejercicio_3_auth',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
         'reference' => '6beeb3967c861c74d6ef803406d3999575f43c9b',
@@ -10,7 +10,7 @@
         'dev' => true,
     ),
     'versions' => array(
-        'ecl/ejercicio1_auth' => array(
+        'ecl/ejercicio_3_auth' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
             'reference' => '6beeb3967c861c74d6ef803406d3999575f43c9b',

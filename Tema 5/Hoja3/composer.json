@@ -1,0 +1,20 @@
+{
+    "name": "ecl/ejercicio_3_auth",
+    "description": "Ejercicio 3 auth",
+    "type": "project",
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ecl\\Ejercicio3Auth\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Etsiu7",
+            "email": "eloycuesta@hotmail.es"
+        }
+    ],
+    "minimum-stability": "stable"
+}

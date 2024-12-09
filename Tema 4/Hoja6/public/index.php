@@ -61,6 +61,7 @@ if (isset($_GET['mensaje'])) {
             </tr>
                 <?php
                     foreach ($productos as $producto){
+                        var_dump($producto);
                         echo '<tr>';
                         echo '<td>'.$producto->nombre.'</td>'.'<td>'.$producto->precio.'</td>'.'<td>'.
                         '<a href="view.php?id=' . $producto->id . '" class="btn btn-ver">Ver</a>
