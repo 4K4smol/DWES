@@ -1,20 +1,16 @@
 <?php
 session_start();
 
-// Simulación de usuario autenticado
 $_SESSION['usuario'] = 'eloy';
 $_SESSION['hash_password'] = hash('sha256', 'contraseña123');
 
-// Si se solicita limpiar el registro
 if (isset($_GET['limpiar'])) {
     unset($_SESSION['visitas']);
     $mensaje = "Bienvenido. Esta es su primera visita.";
 } else {
-    // Registrar la visita actual
     $fechaActual = date("d/m/Y a las H:i");
     $_SESSION['visitas'][] = $fechaActual;
 
-    // Mensaje para visitas anteriores
     if (count($_SESSION['visitas']) === 1) {
         $mensaje = "Bienvenido. Esta es su primera visita.";
     } else {
