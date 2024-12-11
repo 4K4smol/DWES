@@ -1,0 +1,23 @@
+{
+    "name": "ecl/ejercicio_4_auth",
+    "description": "Ejercicio 4 de auth",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        },
+        "files":[
+            "src/Ficheros/Helper.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "Etsiu7",
+            "email": "eloycuesta@hotmail.es"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    },
+    "minimum-stability": "stable"
+}
