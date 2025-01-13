@@ -1,13 +1,5 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Añadir Animal</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container mt-5">
+@extends('inicio')
+@section('contenido-dentro')
         <h1 class="text-center">Añadir un Animal</h1>
 
         {{-- Formulario para agregar usuario --}}
@@ -27,6 +19,4 @@
                 <button type="submit" class="btn btn-primary mt-3">Añadir Animal</button>
                 <a href="{{ route('animals.index') }}" class="btn btn-primary mt-3">Volver</a>
         </form>
-    </div>
-</body>
-</html>
+@endsection
