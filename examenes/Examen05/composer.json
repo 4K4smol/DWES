@@ -1,0 +1,24 @@
+{
+    "name": "daw2/examen05",
+    "description": "Examen 05 Eloy Cuesta",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Examen05\\": "src/"
+        },
+        "files": [
+            "src/Ficheros/funciones.php"
+        ]
+    },
+    "minimum-stability": "stable",
+    "require": {
+        "vlucas/phpdotenv":"^5.6"
+    },
+    "repositories":[{
+        "type":"path",
+        "url":"C:/Users/DAW2/Documents/Examen05/libreria"
+    }],
+    "scripts":{
+        "start": "php -S localhost:8001 -t public"
+    }
+}
