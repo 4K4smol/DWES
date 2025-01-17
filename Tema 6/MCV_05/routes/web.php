@@ -10,5 +10,5 @@ Route::get('/animals/view/{id}', [AnimalsController::class, 'view'])->name('anim
 Route::get('/animals/add', [AnimalsController::class, 'add'])->name('animals.add');
 Route::get('/animals/edit/{id}', [AnimalsController::class, 'edit'])->name('animals.edit');
 Route::post('/animals/store/', [AnimalsController::class, 'store'])->name('animals.store');
-Route::post('/animals/update/', [AnimalsController::class, 'update'])->name('animals.update');
+Route::put('/animals/update/', [AnimalsController::class, 'update'])->name('animals.update');
 Route::get('/animals/delete/{id}', [AnimalsController::class, 'delete'])->name('animals.delete');

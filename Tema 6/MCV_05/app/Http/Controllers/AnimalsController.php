@@ -51,20 +51,40 @@
 
         }
 
-        public function update (Request $request)
+        /**
+         * Actualiza un animal existente.
+         *
+         * @param \Illuminate\Http\Request $request
+         * @return \Illuminate\Http\RedirectResponse
+         */
+        public function update(Request $request)
         {
-            $request->validate([
+            // dd($request->all());
+
+            // Validar los datos
+            $validatedData = $request->validate([
+                'id' => 'required|integer|exists:animals,id',
                 'nombre' => 'required|string|max:255',
-                'imagen' => 'required|image|mimes:jpeg,png,jpg,gif|', // Validación de la imagen
+                'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
-            $imagePath = $request->file('imagen')->store('animals', 'public');
-            $request->imagen = $imagePath; // Guardar la ruta de la imagen
 
-            $animal = Animal::findOrFail($request['id']);
-            $animal->update($request->all());
+            $animal = Animal::findOrFail($validatedData['id']);
 
+            if ($request->hasFile('imagen')) {
+                // Eliminar imagen existente
+                if ($animal->imagen) {
+                    Storage::delete('public/' . $animal->imagen);
+                }
+                $imagePath = $request->file('imagen')->store('animals', 'public');
+                $validatedData['imagen'] = $imagePath;
+            }
+
+            // Actualizar el animal con los datos validados
+            $animal->update($validatedData);
+
+            // Redirigir con mensaje de éxito
             return redirect()->route('animals.index')
-            ->with('success','Animal editado con exito');
+                ->with('success', 'Animal editado con éxito');
         }
 
         public function delete ($id)
