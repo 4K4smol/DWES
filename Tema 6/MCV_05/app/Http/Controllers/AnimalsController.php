@@ -4,7 +4,6 @@
 
     use Illuminate\Http\Request;
     use App\Models\Animal;
-    use Illuminate\Http\RedirectResponse;
 
     Class AnimalsController extends Controller
     {
@@ -35,10 +34,14 @@
         {
             $request->validate([
             'nombre' => 'required|string|max:255',
-            'esperanza_vida' => 'required|string|max:255'
+            'imagen' => 'required|image|mimes:jpeg,png,jpg,gif|', // Validación de la imagen
             ]);
 
+            $imagePath = $request->file('imagen')->store('animals', 'public');
+            $request->imagen = $imagePath; // Guardar la ruta de la imagen
+
             Animal::create([
+                'imagen' => $request->imagen,
                 'nombre' => $request->nombre,
                 'esperanza_vida' => $request->esperanza_vida,
             ]);
@@ -52,8 +55,10 @@
         {
             $request->validate([
                 'nombre' => 'required|string|max:255',
-                'esperanza_vida' => 'required|string|max:255'
+                'imagen' => 'required|image|mimes:jpeg,png,jpg,gif|', // Validación de la imagen
             ]);
+            $imagePath = $request->file('imagen')->store('animals', 'public');
+            $request->imagen = $imagePath; // Guardar la ruta de la imagen
 
             $animal = Animal::findOrFail($request['id']);
             $animal->update($request->all());

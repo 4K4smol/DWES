@@ -8,16 +8,18 @@
 </head>
 <body class="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white flex justify-center items-center min-h-screen">
 
-    <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 w-96">
-        <h5 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Detalle de Animal</h5>
-        <p class="text-gray-700 dark:text-gray-400 font-normal">
-            <span class="font-semibold">Nombre:</span> {{ $animal->nombre }} <br>
-            <span class="font-semibold">Esperanza de vida:</span> {{ $animal->esperanza_vida }} años
-        </p>
-        <div class="mt-4 flex justify-end">
-            <a href="{{ route('animals.index') }}" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
-                Volver
+    <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <a>
+            <img class="rounded-t-lg" src="{{ asset('storage/' . $animal->imagen) }}" alt="{{ $animal->nombre }}" />
+        </a>
+        <div class="p-5">
+            <a>
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Animal {{ $animal->id }} </h5>
             </a>
+            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                <strong>Nombre:</strong> {{ $animal->nombre }}
+                <strong>Esperanza de vida:</strong> {{ $animal->esperanza_vida }}
+            </p>
         </div>
     </div>
 

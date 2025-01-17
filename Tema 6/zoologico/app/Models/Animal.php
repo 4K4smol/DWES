@@ -14,5 +14,6 @@ class Animal extends Model
     protected $fillable = [
         'nombre',
         'esperanza_vida',
+        'imagen',
     ];
 }
