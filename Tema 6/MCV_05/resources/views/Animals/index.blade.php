@@ -13,7 +13,7 @@
             @endif
         </div>
         <div class="row">
-            <div class="col-md-12 bg-light text-right">
+            <div class="col-md-12 bg-light text-right py-5">
                 <a href="{{ route('inicio')}}"
                 class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
                 Volver</a>
@@ -26,20 +26,28 @@
             <table class=" text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                        <th scope="col" class="px-6 py-3">Nombre</th>
-                        <th scope="col" class="px-6 py-3">Esperanza de vida</th>
+                        <th scope="col" class="px-6 py-3">Espcie</th>
+                        <th scope="col" class="px-6 py-3">Peso</th>
+                        <th scope="col" class="px-6 py-3">Altura</th>
+                        <th scope="col" class="px-6 py-3">Fecha Nacimiento</th>
+                        <th scope="col" class="px-6 py-3">Alimentacion</th>
+                        <th scope="col" class="px-6 py-3">Descripcion</th>
                         <th scope="col" class="px-6 py-3">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($animals as $animal)
                         <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                            <td class="px-6 py-4">{{ $animal->nombre }}</td>
-                            <td class="px-6 py-4">{{ $animal->esperanza_vida }}</td>
-                            <td class="px-1">
-                                <a href="{{ route('animals.view', $animal->id) }}" class="bg-purple-600 hover:bg-purple-800 text-white font-semibold py-3 px-6 rounded-lg shadow-md">Ver</a>
-                                <a href="{{ route('animals.edit', $animal->id) }}" class="bg-purple-600 hover:bg-purple-800 text-white font-semibold py-3 px-6 rounded-lg shadow-md">Editar</a>
-                                <a href="{{ route('animals.delete', $animal->id) }}" class="bg-purple-600 hover:bg-purple-800 text-white font-semibold py-3 px-6 rounded-lg shadow-md">Borrar</a>
+                            <td class="px-6 py-4">{{ $animal->especie }}</td>
+                            <td class="px-6 py-4">{{ $animal->peso }}</td>
+                            <td class="px-6 py-4">{{ $animal->altura }}</td>
+                            <td class="px-6 py-4">{{ $animal->fechaNacimiento }}</td>
+                            <td class="px-6 py-4">{{ $animal->alimentacion }}</td>
+                            <td class="px-6 py-4">{{ $animal->descripcion }}</td>
+                            <td class="px-5">
+                                <a href="{{ route('animals.view', $animal) }}" class="bg-purple-600 hover:bg-purple-800 text-white font-semibold py-1 px-3 rounded-lg shadow-md">Ver</a>
+                                <a href="{{ route('animals.edit', $animal) }}" class="bg-purple-600 hover:bg-purple-800 text-white font-semibold py-1 px-3 rounded-lg shadow-md">Editar</a>
+                                <a href="{{ route('animals.delete', $animal) }}" class="bg-purple-600 hover:bg-purple-800 text-white font-semibold py-1 px-3 rounded-lg shadow-md">Borrar</a>
                             </td>
                         </tr>
                     @endforeach

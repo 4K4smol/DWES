@@ -17,8 +17,12 @@
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Animal {{ $animal->id }} </h5>
             </a>
             <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                <strong>Nombre:</strong> {{ $animal->nombre }}
-                <strong>Esperanza de vida:</strong> {{ $animal->esperanza_vida }}
+                <strong>Especie:</strong> {{ $animal->especie }}<br><br>
+                <strong>Peso:</strong> {{ $animal->peso }}<br><br>
+                <strong>Altura:</strong> {{ $animal->altura }}<br><br>
+                <strong>Edad:</strong> {{ $animal->getEdad() }}<br><br>
+                <strong>Alimentacion:</strong> {{ $animal->alimentacion }}<br><br>
+                <strong>Descripción:</strong> {{ $animal->descripcion }}<br><br>
             </p>
         </div>
     </div>

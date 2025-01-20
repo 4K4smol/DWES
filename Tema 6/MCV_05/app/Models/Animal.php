@@ -3,17 +3,27 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Animal extends Model
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
+    protected $table = 'animales';
+
     protected $fillable = [
-        'nombre',
-        'esperanza_vida',
+        'especie',
+        'slug',
+        'peso',
+        'altura',
+        'fechaNacimiento',
         'imagen',
+        'alimentacion',
+        'descripcion'
     ];
+
+    public function getEdad()
+    {
+        $fechaFormateada=Carbon::parse($this->fechaNacimiento);
+        return number_format($fechaFormateada->diffInYears(Carbon::now()),0);
+    }
+
 }

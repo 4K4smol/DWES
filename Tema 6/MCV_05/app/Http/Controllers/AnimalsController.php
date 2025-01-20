@@ -13,9 +13,12 @@
             return view('animals.index', compact('animals'));
         }
 
-        public function view($id)
+        /**
+         * @param App\Models\Animal Animal
+         * @return Illuminate\Http\Request
+         */
+        public function view(Animal $animal)
         {
-            $animal = Animal::findOrFail($id);
             return view('animals.view', compact('animal'));
         }
 
@@ -24,27 +27,35 @@
             return view('animals.add');
         }
 
-        public function edit($id)
+        public function edit(Animal $animal)
         {
-            $animal = Animal::findOrFail($id);
             return view('animals.edit',compact('animal'));
         }
 
         public function store (Request $request)
         {
-            $request->validate([
-            'nombre' => 'required|string|max:255',
-            'imagen' => 'required|image|mimes:jpeg,png,jpg,gif|', // Validación de la imagen
+            // En caso de ser valido el objeto sera igual a la variable
+            $validatedData = $request->validate([
+                'especie' => 'required|string|max:255',
+                'slug' => 'required|string|max:255',
+                'peso' => 'required|float',
+                'altura' => 'required|float',
+                'fechaNaciemiento' => 'required|date',
+                'imagen' => '|image|mimes:jpeg,png,jpg,gif|max:255',
+                'alimentacion' => 'string|max:20',
+                'descripcion' => '|string|',
             ]);
 
-            $imagePath = $request->file('imagen')->store('animals', 'public');
-            $request->imagen = $imagePath; // Guardar la ruta de la imagen
+            if ($request->hasFile('imagen')) {
+                // Eliminar imagen existente
+                if ($request->imagen) {
+                    Storage::delete('public/' . $request->imagen);
+                }
+                $imagePath = $request->file('imagen')->store('animals', 'public');
+                $validatedData['imagen'] = $imagePath;
+            }
 
-            Animal::create([
-                'imagen' => $request->imagen,
-                'nombre' => $request->nombre,
-                'esperanza_vida' => $request->esperanza_vida,
-            ]);
+            Animal::create([$validatedData]);
 
             return redirect()->route('animals.index')
             ->with('success', 'Animal añadido con exito.');
@@ -59,17 +70,21 @@
          */
         public function update(Request $request)
         {
-            // dd($request->all());
-
             // Validar los datos
             $validatedData = $request->validate([
-                'id' => 'required|integer|exists:animals,id',
-                'nombre' => 'required|string|max:255',
-                'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'descripcion' => '|string|',
+                'alimentacion' => 'string|max:20',
+                'fechaNaciemiento' => 'required|date',
+                'altura' => 'required|float',
+                'peso' => 'required|float',
+                'slug' => 'required|string|max:255',
+                'especie' => 'required|string|max:255',
+                'imagen' => 'required|image|mimes:jpeg,png,jpg,gif|max:255',
             ]);
 
             $animal = Animal::findOrFail($validatedData['id']);
 
+            // Comprobar si existe el file imagen
             if ($request->hasFile('imagen')) {
                 // Eliminar imagen existente
                 if ($animal->imagen) {
@@ -94,6 +109,13 @@
 
             return redirect()->route('animals.index')
             ->with('success','Animal borrado exito');
+        }
+
+        public function getEdad($animal)
+        {
+            $fechaFormateada = Carbon::parse($animal->fechaNacimiento);
+            // dd($fechaFormateada->diffInYears(Carbon::now()));
+            return number_format($fechaFormateada->diffInYears(Carbon::now()),0);
         }
 
     }
