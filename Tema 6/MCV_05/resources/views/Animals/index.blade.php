@@ -47,7 +47,12 @@
                             <td class="px-5">
                                 <a href="{{ route('animals.view', $animal) }}" class="bg-purple-600 hover:bg-purple-800 text-white font-semibold py-1 px-3 rounded-lg shadow-md">Ver</a>
                                 <a href="{{ route('animals.edit', $animal) }}" class="bg-purple-600 hover:bg-purple-800 text-white font-semibold py-1 px-3 rounded-lg shadow-md">Editar</a>
-                                <a href="{{ route('animals.delete', $animal) }}" class="bg-purple-600 hover:bg-purple-800 text-white font-semibold py-1 px-3 rounded-lg shadow-md">Borrar</a>
+                                <a href="{{ route('animals.delete', $animal) }}"
+                                    class="bg-purple-600 hover:bg-purple-800 text-white font-semibold py-1 px-3 rounded-lg shadow-md"
+                                    onclick="return confirm('¿Quieres eliminar la especie?');">
+
+                                    Borrar
+                                </a>
                             </td>
                         </tr>
                     @endforeach

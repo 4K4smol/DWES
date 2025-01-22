@@ -1,121 +1,115 @@
 <?php
 
-    namespace App\Http\Controllers;
+namespace App\Http\Controllers;
 
-    use Illuminate\Http\Request;
-    use App\Models\Animal;
+use Illuminate\Http\Request;
+use App\Models\Animal;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
-    Class AnimalsController extends Controller
+class AnimalsController extends Controller
+{
+    public function index()
     {
-        public function index()
-        {
-            $animals = Animal::all();
-            return view('animals.index', compact('animals'));
-        }
+        $animals = Animal::all();
+        return view('animals.index', compact('animals'));
+    }
 
-        /**
-         * @param App\Models\Animal Animal
-         * @return Illuminate\Http\Request
-         */
-        public function view(Animal $animal)
-        {
-            return view('animals.view', compact('animal'));
-        }
+    /**
+     * @param App\Models\Animal Animal
+     * @return Illuminate\Http\Request
+     */
+    public function view(Animal $animal)
+    {
+        return view('animals.view', compact('animal'));
+    }
 
-        public function add()
-        {
-            return view('animals.add');
-        }
+    public function add()
+    {
+        return view('animals.add');
+    }
 
-        public function edit(Animal $animal)
-        {
-            return view('animals.edit',compact('animal'));
-        }
+    public function edit(Animal $animal)
+    {
+        return view('animals.edit', compact('animal'));
+    }
 
-        public function store (Request $request)
-        {
-            // En caso de ser valido el objeto sera igual a la variable
+    public function store(Request $request)
+    {
+        try {
             $validatedData = $request->validate([
                 'especie' => 'required|string|max:255',
-                'slug' => 'required|string|max:255',
-                'peso' => 'required|float',
-                'altura' => 'required|float',
-                'fechaNaciemiento' => 'required|date',
-                'imagen' => '|image|mimes:jpeg,png,jpg,gif|max:255',
-                'alimentacion' => 'string|max:20',
-                'descripcion' => '|string|',
+                'peso' => 'required|numeric',
+                'altura' => 'required|numeric',
+                'fechaNacimiento' => 'required|date',
+                'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'alimentacion' => 'nullable|string|max:20',
+                'descripcion' => 'nullable|string',
             ]);
 
             if ($request->hasFile('imagen')) {
-                // Eliminar imagen existente
-                if ($request->imagen) {
-                    Storage::delete('public/' . $request->imagen);
-                }
-                $imagePath = $request->file('imagen')->store('animals', 'public');
-                $validatedData['imagen'] = $imagePath;
+                $validatedData['imagen'] = $request->file('imagen')->store('animals', 'public');
             }
 
-            Animal::create([$validatedData]);
+            $validatedData['slug'] = Str::slug($validatedData['especie'], '-');
+
+            Animal::create($validatedData);
 
             return redirect()->route('animals.index')
-            ->with('success', 'Animal añadido con exito.');
-
+                ->with('success', 'Animal añadido con éxito.');
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => $e->getMessage()]);
         }
+    }
 
-        /**
-         * Actualiza un animal existente.
-         *
-         * @param \Illuminate\Http\Request $request
-         * @return \Illuminate\Http\RedirectResponse
-         */
-        public function update(Request $request)
-        {
-            // Validar los datos
+
+    /**
+     * Actualiza un animal existente.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(Request $request, Animal $animal)
+    {
+        try {
             $validatedData = $request->validate([
-                'descripcion' => '|string|',
-                'alimentacion' => 'string|max:20',
-                'fechaNaciemiento' => 'required|date',
-                'altura' => 'required|float',
-                'peso' => 'required|float',
-                'slug' => 'required|string|max:255',
                 'especie' => 'required|string|max:255',
-                'imagen' => 'required|image|mimes:jpeg,png,jpg,gif|max:255',
+                'peso' => 'required|numeric',
+                'altura' => 'required|numeric',
+                'fechaNacimiento' => 'required|date',
+                'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'alimentacion' => 'nullable|string|max:20',
+                'descripcion' => 'nullable|string',
             ]);
 
-            $animal = Animal::findOrFail($validatedData['id']);
-
-            // Comprobar si existe el file imagen
             if ($request->hasFile('imagen')) {
-                // Eliminar imagen existente
+                // Eliminar la imagen anterior si existe
                 if ($animal->imagen) {
                     Storage::delete('public/' . $animal->imagen);
                 }
-                $imagePath = $request->file('imagen')->store('animals', 'public');
-                $validatedData['imagen'] = $imagePath;
+
+                $validatedData['imagen'] = $request->file('imagen')->store('animals', 'public');
             }
 
-            // Actualizar el animal con los datos validados
+            $validatedData['slug'] = Str::slug($validatedData['especie'], '-');
+            // dd($validatedData);
+            // Actualizar con los datos validados
             $animal->update($validatedData);
 
             // Redirigir con mensaje de éxito
             return redirect()->route('animals.index')
                 ->with('success', 'Animal editado con éxito');
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => $e->getMessage()]);
         }
-
-        public function delete ($id)
-        {
-            $animal = Animal::findOrFail($id);
-            $animal->delete();
-
-            return redirect()->route('animals.index')
-            ->with('success','Animal borrado exito');
-        }
-
-        public function getEdad($animal)
-        {
-            $fechaFormateada = Carbon::parse($animal->fechaNacimiento);
-            // dd($fechaFormateada->diffInYears(Carbon::now()));
-            return number_format($fechaFormateada->diffInYears(Carbon::now()),0);
-        }
-
     }
+
+
+    public function delete(Animal $animal)
+    {
+        $animal->delete();
+
+        return redirect()->route('animals.index')
+            ->with('success', 'Animal borrado con éxito.');
+    }
+}

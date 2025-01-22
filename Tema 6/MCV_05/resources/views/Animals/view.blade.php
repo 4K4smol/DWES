@@ -13,6 +13,8 @@
             <img class="rounded-t-lg" src="{{ asset('storage/' . $animal->imagen) }}" alt="{{ $animal->nombre }}" />
         </a>
         <div class="p-5">
+            <a href="{{ route('animals.index') }}" class="bg-purple-600 hover:bg-purple-800 text-white font-semibold py-1 px-3 rounded-lg shadow-md">Volver</a>
+
             <a>
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Animal {{ $animal->id }} </h5>
             </a>
