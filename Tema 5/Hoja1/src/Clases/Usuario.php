@@ -8,11 +8,11 @@ class Usuario
     private string $usuario;
     private string $password;
 
-    public function __construct(?int $id, string $usuario, string $password)
+    public function __construct(string $usuario, string $password, ?int $id = null)
     {
         $this->id = $id;
         $this->usuario = $usuario;
-        $this->password = $password;
+        $this->password = $password; // Usa el método para asegurar que el hash se genera.
     }
 
     // Métodos getter
@@ -31,10 +31,5 @@ class Usuario
         return $this->password;
     }
 
-    // Método para validar la contraseña
-    public function validarPassword(string $password): bool
-    {
-        return password_verify($password, $this->password);
-    }
 }
 ?>

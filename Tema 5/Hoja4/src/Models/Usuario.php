@@ -2,23 +2,28 @@
 
     namespace App\Models;
 
+
+
     class Usuario
     {
-        private ?int $id;
+        private string $nombre;
         private string $email;
-        private string $pwd;
+        private string $password;
+        private string $fecha;
+        private ?int $id;
 
-        public function __construct(string $email, string $pwd, ?int $id = null)
+        public function __construct(string $nombre, string $email, string $password,string $fecha ,?int $id = null)
         {
-            $this->email=$email;
-            $this->pwd=$pwd;
-            $this->id=$id;
+            $this->nombre = $nombre;
+            $this->email = $email;
+            $this->password = $password;
+            $this->fecha = $fecha;
+            $this->id = $id;
         }
 
-        // Getters
-        public function getId(): ?int
+        public function getNombre(): string
         {
-            return $this->id;
+            return $this->nombre;
         }
 
         public function getEmail(): string
@@ -26,26 +31,21 @@
             return $this->email;
         }
 
-        public function getPwd(): string
+        public function getPassword(): string
         {
-            return $this->pwd;
+            return $this->password;
         }
 
-        // Setters
-        public function setId(?int $id): void
+        public function getFecha(): string
         {
-            $this->id = $id;
+            return $this->fecha;
         }
 
-        public function setEmail(string $email): void
+        public function getId(): ?int
         {
-            $this->email = $email;
+            return $this->id;
         }
 
-        public function setPwd(string $pwd): void
-        {
-            $this->pwd = $pwd;
-        }
     }
 
 

@@ -9,7 +9,17 @@
     <?php
         require_once __DIR__ . '/../vendor/autoload.php';
 
+        use App\Autentificarse;
+
+        // Inicializar y configurar el sistema
+        Autentificarse::inicializar();
+        Autentificarse::configurar();
+
+        // Ejecutar la acción correspondiente
+        Autentificarse::runAccion();
 
     ?>
+
+    <h1>Inicio</h1>
 </body>
 </html>

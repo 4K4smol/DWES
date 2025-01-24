@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
 </head>
 <body>
+    <?php
+        if ($_SERVER['REQUEST_METHOD']=='GET') {
+            if ($_GET['msg']) {
+                echo $_GET['msg'];
+            }
+        }
+    ?>
     <h1>Gestion del funicular</h1>
     <h2>Elige una opcion</h2>
         <ul>

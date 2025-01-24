@@ -3,7 +3,7 @@
         'name' => 'ecl/ejercicio1_auth',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '6beeb3967c861c74d6ef803406d3999575f43c9b',
+        'reference' => '9e9baf1a912fdd5a7d0c65d973df233d28f5aef4',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'ecl/ejercicio1_auth' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '6beeb3967c861c74d6ef803406d3999575f43c9b',
+            'reference' => '9e9baf1a912fdd5a7d0c65d973df233d28f5aef4',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

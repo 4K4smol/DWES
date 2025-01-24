@@ -1,44 +1,30 @@
-<?php
-// Nombre de la cookie
-$cookieName = "ultimaVisita";
-
-// Duración de la cookie en segundos (1 año)
-$cookieDuration = 365 * 24 * 60 * 60;
-
-// Mensaje inicial
-$mensaje = "";
-
-if (isset($_GET['reset'])) {
-    // Eliminar la cookie usando una duración negativa
-    setcookie($cookieName, "", time() - 3600);
-    $mensaje = "La cookie ha sido reseteada. F5";
-} else {
-    if (isset($_COOKIE[$cookieName])) {
-        // Recuperar la fecha y hora almacenada en la cookie
-        $ultimaVisita = $_COOKIE[$cookieName];
-        $mensaje = "Bienvenido de nuevo. Tu última visita fue el " . date("d/m/Y H:i:s", strtotime($ultimaVisita)) . ".";
-    } else {
-        // Primera visita
-        $mensaje = "¡Bienvenido! Esta es tu primera visita.";
-    }
-
-    // Actualizar la cookie con la fecha y hora actual
-    setcookie($cookieName, date("Y-m-d H:i:s"), time() + $cookieDuration);
-}
-?>
-
 <!DOCTYPE html>
-<html lang="es_ES">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Última Visita</title>
+    <title>Visita y hora</title>
 </head>
 <body>
-    <h1>Seguimiento de Visitas</h1>
-    <p><?= htmlspecialchars($mensaje) ?></p>
-    <p>
-        <a href="?reset=true">Resetear Cookie</a>
-    </p>
+    <?php
+        if ( $_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['borrar']) && $_GET['borrar'] == 'true') {
+            setcookie("hora_visita", "", time() - 3600); // Expira la cookie
+            header("Location: index.php" );
+            exit;
+        }
+        // Verificamos si existe la cookie 'hora_visita'
+        if (!isset($_COOKIE['hora_visita'])) {
+            echo "<h1>Bienvenido a su primera visita</h1>";
+        } else {
+            echo "<p>Última visita: " . htmlspecialchars($_COOKIE['hora_visita']) . "</p>";
+        }
+
+        // Actualizamos la cookie con la hora actual
+        $nueva_hora = date("H:i:s");
+        setcookie("hora_visita", $nueva_hora, time() + 86400); // Cookie válida por 1 día
+        echo "<p>Hora actual registrada: " . $nueva_hora . "</p>";
+
+    ?>
+    <a href="?borrar=true">Resetear Cookies</a>
 </body>
 </html>

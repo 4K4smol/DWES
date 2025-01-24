@@ -7,7 +7,7 @@
             "App\\": "src/"
         },
         "files":[
-            "src/Ficheros/Helper.php"
+            "src/Helper.php"
         ]
     },
     "authors": [

@@ -10,7 +10,7 @@
 
     <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <a>
-            <img class="rounded-t-lg" src="{{ asset('storage/' . $animal->imagen) }}" alt="{{ $animal->nombre }}" />
+            <img src="{{ asset($animal->imagen) }}" alt="{{ $animal->especie }}">
         </a>
         <div class="p-5">
             <a href="{{ route('animals.index') }}" class="bg-purple-600 hover:bg-purple-800 text-white font-semibold py-1 px-3 rounded-lg shadow-md">Volver</a>
