@@ -13,8 +13,17 @@
                 <a href="{{route('animals.add')}}" class="text-white">Nuevo Animal</a>
             </div>
             <div class="flex flex-col text-center lg:flex-row">
-                <a href="#" class="bblanco mb-1 lg:mr-4 lg:mb-0">Iniciar Sesion</a>
-                <a href="#" class="bverde">Regístrate</a>
+                <?php if (!Auth::check()): ?>
+                    <a href="{{ route('login') }}" class="bg-transparent hover:bg-black-500 text-black-700 font-semibold hover:text-white py-2 px-4 border border-black-500 hover:border-transparent rounded">Iniciar Sesión</a>
+                    <a href="{{ route('register') }}" class="bg-transparent hover:bg-black-500 text-black-700 font-semibold hover:text-white py-2 px-4 border border-black-500 hover:border-transparent rounded">Regístrate</a>
+                <?php else: ?>
+                    <a href="{{ route('logout') }}" class="bg-transparent hover:bg-black-500 text-black-700 font-semibold hover:text-white py-2 px-4 border border-black-500 hover:border-transparent rounded"
+                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Cerrar Sesión</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                    <p style="font-size: 24px; font-weight: bold; color: #bd0707; margin-left:20px;"><?= Auth::user()->name; ?></p>
+                <?php endif; ?>
             </div>
         </div>
     </div>

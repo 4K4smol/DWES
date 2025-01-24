@@ -12,5 +12,9 @@ class DatabaseSeeder extends Seeder
     public function run() {
         DB::table('animales')->delete();
         $this->call(AnimalSeeder::class);
+        DB::table('users')->delete();
+        $this->call(UserSeeder::class);
+        DB::table('revisiones')->delete();
+        $this->call(RevisionSeeder::class);
     }
 }

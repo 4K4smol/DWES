@@ -1,13 +1,13 @@
 @extends('inicio')
 @section('contenido-dentro')
-        <h1 class="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">Lista de Animales</h1>
+        <h1 class="mb-4 text-3xl font-extrabold text-gray-900 md:text-5xl lg:text-6xl">Lista de Animales</h1>
         <div class="row">
             @if (session('success'))
-            <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+            <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50" role="alert">
                 {{ session('success') }}
                 </div>
             @elseif ( session('error'))
-            <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+            <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
                 {{ session('error') }}
                 </div>
             @endif
@@ -23,8 +23,8 @@
             </div>
         </div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table class=" text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <table class=" text-sm text-left rtl:text-right text-gray-500">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                     <tr>
                         <th scope="col" class="px-6 py-3">Espcie</th>
                         <th scope="col" class="px-6 py-3">Peso</th>
@@ -37,7 +37,7 @@
                 </thead>
                 <tbody>
                     @foreach ($animals as $animal)
-                        <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                        <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b">
                             <td class="px-6 py-4">{{ $animal->especie }}</td>
                             <td class="px-6 py-4">{{ $animal->peso }}</td>
                             <td class="px-6 py-4">{{ $animal->altura }}</td>
