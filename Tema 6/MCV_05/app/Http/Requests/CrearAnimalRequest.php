@@ -27,7 +27,6 @@ class CrearAnimalRequest extends FormRequest
             'altura' => 'required|numeric',
             'fechaNacimiento' => 'required|date',
             'alimentacion' => 'max:255',
-            'imagen' => 'required|mimes:jpeg,png,jpg,svg|max:2048',
         ];
     }
 
@@ -40,8 +39,6 @@ class CrearAnimalRequest extends FormRequest
             'altura.required' => 'La altura es obligatoria.',
             'fechaNacimiento.required' => 'La fecha de nacimiento es obligatoria.',
             'alimentacion.max' => 'No puede tener más de 255 caracteres',
-            'imagen.required' => 'La imagen es obligatoria.',
-            'imagen.mimes' => 'Solo se permiten imágenes de tipo jpeg, png, jpg y svg.',
         ];
     }
 }

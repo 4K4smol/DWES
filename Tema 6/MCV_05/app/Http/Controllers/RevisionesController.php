@@ -23,8 +23,10 @@ class RevisionesController extends Controller
         $revision->descripcion = $request->input('descripcion');
 
         $revision->save();
+        $a = Animal::find($revision->animal_id);
 
-        return redirect()->route('animals.index', $revision)
+
+        return redirect()->route('animals.view', $a)
         ->with('success', 'Revision añadido con éxito');
     }
 }

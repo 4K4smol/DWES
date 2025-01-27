@@ -44,12 +44,12 @@ class AnimalsController extends Controller
         $animal->descripcion = $request->input('descripcion');
         $animal->slug = strtolower($request->input('especie'));
 
-        // Guardar la imagen
         if ($request->hasFile('imagen')) {
-            $path = $request->file('imagen')->store('public/animales');
+            $path = $request->file('imagen')->store('imagenes', 'public');
             $animal->imagen = basename($path);
         }
-        dd($animal);
+
+
         $animal->save();
 
         return redirect()->route('animals.index', $animal)
@@ -74,7 +74,7 @@ class AnimalsController extends Controller
 
         // Actualizar la imagen si se sube una nueva
         if ($request->hasFile('imagen')) {
-            $path = $request->file('imagen')->store('public/animales');
+            $path = $request->file('imagen')->store('imagenes/animales');
             $animal->imagen = basename($path);
         }
 

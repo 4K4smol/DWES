@@ -20,7 +20,6 @@ class CreateAnimalsTable extends Migration
             $table->double('peso', 6, 1);
             $table->double('altura', 6, 1);
             $table->date('fechaNacimiento');
-            $table->string('imagen')->nullable();
             $table->string('alimentacion', 20)->nullable()->collation('utf8mb4_unicode_ci');
             $table->text('descripcion')->nullable();
             $table->timestamps();

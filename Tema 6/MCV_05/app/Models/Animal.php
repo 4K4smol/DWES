@@ -39,4 +39,8 @@ class Animal extends Model
         return $this->hasMany(Revision::class);
     }
 
+    public function cuidadores(){
+        return $this->belongsToMany(Cuidador::class);
+    }
+
 }

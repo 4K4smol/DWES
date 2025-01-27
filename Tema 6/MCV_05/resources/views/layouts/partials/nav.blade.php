@@ -14,10 +14,10 @@
             </div>
             <div class="flex flex-col text-center lg:flex-row">
                 <?php if (!Auth::check()): ?>
-                    <a href="{{ route('login') }}" class="bg-transparent hover:bg-black-500 text-black-700 font-semibold hover:text-white py-2 px-4 border border-black-500 hover:border-transparent rounded">Iniciar Sesión</a>
-                    <a href="{{ route('register') }}" class="bg-transparent hover:bg-black-500 text-black-700 font-semibold hover:text-white py-2 px-4 border border-black-500 hover:border-transparent rounded">Regístrate</a>
+                    <a href="{{ route('login') }}" class="bg-transparent hover:bg-blue-500 text-black-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent ">Iniciar Sesión</a>
+                    <a href="{{ route('register') }}" class="bg-transparent hover:bg-blue-500 text-black-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent  ">Regístrate</a>
                 <?php else: ?>
-                    <a href="{{ route('logout') }}" class="bg-transparent hover:bg-black-500 text-black-700 font-semibold hover:text-white py-2 px-4 border border-black-500 hover:border-transparent rounded"
+                    <a href="{{ route('logout') }}" class="bg-transparent hover:bg-red-500 text-black-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent"
                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Cerrar Sesión</a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
