@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('animal_id')->unique(); // Declaración de la columna clave foránea
+            $table->foreign('animal_id')->references('id')->on('animales')->onDelete('cascade'); // Define la clave foránea
             $table->string('nombre');
             $table->string('url')->unique();
             $table->timestamps();

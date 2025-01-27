@@ -17,10 +17,11 @@
 </div>
     <div class="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-2xl hover:shadow-xl transition-shadow duration-300 overflow-hidden">
         <div class="relative group">
-            <img src="{{ Storage::url('animales/' . $animal->imagen) }}"
-                 alt="{{ $animal->especie }}"
-                 class="w-full h-72 object-cover transition-transform duration-300 hover:scale-105">
-
+            @if (!empty($animal->image))
+                <img src="{{ Storage::url('imagenes/' . $animal->image->url) }}"
+                alt="{{ $animal->image->nombre }}"
+                class="w-full h-72 object-cover transition-transform duration-300 hover:scale-105">
+            @endif
             <a href="{{ route('animals.index') }}"
                class="absolute top-4 right-4 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-700 text-purple-600 dark:text-purple-400 font-semibold py-2 px-4 rounded-lg shadow-md flex items-center gap-2 transition-all duration-200">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -115,7 +116,7 @@
                     <article class="bg-white dark:bg-gray-700 p-5 rounded-xl border border-gray-200 dark:border-gray-600 shadow-sm hover:shadow-md transition-shadow">
                         <div class="flex items-start gap-3">
                             <div class="space-y-1.5">
-                                <a href="{{ route('cuidadores.show', ['cuidador' => $cuidador->id, 'animal' => $animal]) }}" class="text-gray-600 dark:text-gray-300">
+                                <a href="{{ route('cuidadores.show', $cuidador) }}" class="text-gray-600 dark:text-gray-300">
                                     {{ $cuidador->nombre }}
                                 </a>
                             </div>

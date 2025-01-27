@@ -15,7 +15,6 @@ class Animal extends Model
         'peso',
         'altura',
         'fechaNacimiento',
-        'imagen',
         'alimentacion',
         'descripcion'
     ];
@@ -41,6 +40,11 @@ class Animal extends Model
 
     public function cuidadores(){
         return $this->belongsToMany(Cuidador::class);
+    }
+
+    public function image()
+    {
+        return $this->hasOne(Image::class);
     }
 
 }

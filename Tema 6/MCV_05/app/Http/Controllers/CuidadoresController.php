@@ -7,10 +7,9 @@ use App\Models\Cuidador;
 
 class CuidadoresController extends Controller
 {
-    public function show(Cuidador $cuidador, Request $request)
+    public function show(Cuidador $cuidador)
     {
-        $animal = $request->query('animal');
-        return view('cuidadores.show', compact('cuidador', 'animal'));
+        return view('cuidadores.show', compact('cuidador'));
     }
 
 }

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('revisiones', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('animal_id'); // Declaración de la columna clave foránea
-            $table->foreign('animal_id')->references('id')->on('animales')->onDelete('cascade'); // Define la clave foránea            $table->date('fechaRevision');
+            $table->foreign('animal_id')->references('id')->on('animales')->onDelete('cascade'); // Define la clave foránea
             $table->date('fechaRevision');
             $table->string('descripcion');
             $table->timestamps();

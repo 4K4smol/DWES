@@ -15,5 +15,6 @@ class CuidadorSeeder extends Seeder
     public function run(): void
     {
         Cuidador::factory(20)->create();
+        $this->command->info('Tabla cuidadores inicializada con datos');
     }
 }

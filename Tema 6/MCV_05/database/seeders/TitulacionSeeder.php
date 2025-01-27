@@ -14,5 +14,6 @@ class TitulacionSeeder extends Seeder
     public function run(): void
     {
         Titulacion::factory(20)->create();
+        $this->command->info('Tabla titulaciones inicializada con datos');
     }
 }

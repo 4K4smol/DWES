@@ -32,7 +32,13 @@ class Cuidador extends Model
         return $this->belongsToMany(Animal::class);
     }
 
-
+    /**
+     * Get the route key for the model.
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
 
 
 }

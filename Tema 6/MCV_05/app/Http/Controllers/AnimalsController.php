@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Animal;
 use App\Http\Requests\CrearAnimalRequest;
+use App\Models\Image;
 
 class AnimalsController extends Controller
 {
@@ -44,13 +45,19 @@ class AnimalsController extends Controller
         $animal->descripcion = $request->input('descripcion');
         $animal->slug = strtolower($request->input('especie'));
 
+        $animal->save();
+
         if ($request->hasFile('imagen')) {
             $path = $request->file('imagen')->store('imagenes', 'public');
-            $animal->imagen = basename($path);
+
+            // Crear una instancia de la clase Image asociada al animal
+            $imagen = new Image();
+            $imagen->animal_id = $animal->id; // Relación entre Animal e Imagen
+            $imagen->nombre = $animal->slug;
+            $imagen->url = basename($path);
+
+            $imagen->save();
         }
-
-
-        $animal->save();
 
         return redirect()->route('animals.index', $animal)
         ->with('success', 'Animal añadido con éxito');
@@ -69,13 +76,19 @@ class AnimalsController extends Controller
         $animal->especie = $request->input('especie');
         $animal->peso = $request->input('peso');
         $animal->altura = $request->input('altura');
+        $animal->alimentacion = $request->input('alimentacion');
         $animal->fechaNacimiento = $request->input('fechaNacimiento');
+        $animal->descripcion = $request->input('descripcion');
         $animal->slug = strtolower($request->input('especie'));
 
         // Actualizar la imagen si se sube una nueva
         if ($request->hasFile('imagen')) {
-            $path = $request->file('imagen')->store('imagenes/animales');
-            $animal->imagen = basename($path);
+            $path = $request->file('imagen')->store('imagenes', 'public');
+
+            // Crear una instancia de la clase Image asociada al animal
+            $imagen = Image::where('animal_id', $animal->id)->first();
+            $imagen->url = basename($path);
+            $imagen->save();
         }
 
         $animal->save();
