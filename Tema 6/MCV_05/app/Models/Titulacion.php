@@ -20,5 +20,12 @@ class Titulacion extends Model
             ->orWhere('id_titulacion2');
     }
 
+    /**
+     * Get the route key for the model.
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
 
 }

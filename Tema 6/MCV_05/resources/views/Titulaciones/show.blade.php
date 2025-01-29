@@ -7,7 +7,7 @@
     <div
         class="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-2xl hover:shadow-xl transition-shadow duration-300 overflow-hidden">
         <div class="relative group">
-            <a href=""
+            <a href="{{ url()->previous() }}"
                 class="absolute top-4 right-4 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-700 text-purple-600 dark:text-purple-400 font-semibold py-2 px-4 rounded-lg shadow-md flex items-center gap-2 transition-all duration-200">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
