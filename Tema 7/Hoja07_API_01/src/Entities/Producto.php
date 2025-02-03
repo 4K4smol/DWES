@@ -1,8 +1,8 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
-namespace APP\Entities;
+namespace App\Entities;
 
 use App\services\DBConnection;
 use PDO;
@@ -14,8 +14,8 @@ final class Producto
 
     public function __construct()
     {
-        $this->db = DBConnection::getInstance()->getConexion();
-        $this-> createTable();
+        $this->db = DBConnection::getConexion();
+        $this->createTable();
     }
 
     private function createTable(): void
@@ -28,7 +28,7 @@ final class Producto
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )';
 
-        $this->db->exec(statement: $sql);
+        $this->db->exec($sql);
     }
 
     /**
@@ -48,26 +48,60 @@ final class Producto
         return $this->db->lastInsertId();
     }
 
-    /**
-     * Busca un producto por su ID.
-     *
-     * @param int $productoId
-     * @return array|null
-     */
-    public function find(int $productoId): ?array
+    // Obtener todos los productos
+    public function get(): array
     {
         try {
-            $sql = 'SELECT * FROM productos WHERE id = :id LIMIT 1';
-            $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(':id', $productoId, PDO::PARAM_INT);
+            $stmt = $this->db->query('SELECT * FROM productos');
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log('Error en get(): ' . $e->getMessage());
+            return [];
+        }
+    }
+
+
+    // Buscar un producto por ID y devolver true o false
+    public function find(int $producto_id): bool
+    {
+        try {
+            $stmt = $this->db->prepare('SELECT * FROM productos WHERE id = :producto_id');
+            $stmt->bindParam(':producto_id', $producto_id, PDO::PARAM_INT);
             $stmt->execute();
 
-            $producto = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            return $producto ?: null;
+            return (bool) $stmt->fetchColumn(); // Devuelve true si el producto existe, false si no
         } catch (PDOException $e) {
             error_log('Error en find(): ' . $e->getMessage());
-            return null;
+            return false;
+        }
+    }
+
+
+
+    // Actualizar un producto por su ID
+    public function update(int $productoId, array $data): bool
+    {
+        try {
+            $sql = 'UPDATE productos SET nombre = :nombre, descripcion = :descripcion, precio = :precio WHERE id = :id';
+            $stmt = $this->db->prepare($sql);
+            $data['id'] = $productoId;
+            return $stmt->execute($data);
+        } catch (PDOException $e) {
+            error_log('Error en update(): ' . $e->getMessage());
+            return false;
+        }
+    }
+
+    // Eliminar un producto por su ID
+    public function delete(int $productoId): bool
+    {
+        try {
+            $stmt = $this->db->prepare('DELETE FROM productos WHERE id = :id');
+            $stmt->bindParam(':id', $productoId, PDO::PARAM_INT);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            error_log('Error en delete(): ' . $e->getMessage());
+            return false;
         }
     }
 }

@@ -16,8 +16,7 @@ final class CreateProductoController
             data:input()->all(),
         );
 
-        JsonResponse::response(
-            data:$producto->find((int) $productoId)
-        );
+        JsonResponse::response(['success' => $productoId]);
+
     }
 }
