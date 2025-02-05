@@ -1,0 +1,25 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Mi API Laravel",
+        "description": "Descripción de la API",
+        "contact": {
+            "email": "soporte@miapi.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/example": {
+            "get": {
+                "summary": "Ejemplo de ruta documentada con Swagger",
+                "description": "Descripción de la API",
+                "operationId": "55d453904e0310193faa6cade8e839ba",
+                "responses": {
+                    "200": {
+                        "description": "Respuesta exitosa"
+                    }
+                }
+            }
+        }
+    }
+}
