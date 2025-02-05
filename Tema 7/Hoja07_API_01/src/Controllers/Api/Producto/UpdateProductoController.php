@@ -5,18 +5,21 @@ declare(strict_types=1);
 namespace App\Controllers\Api\Producto;
 
 use App\Entities\Producto;
+use App\Requests\ProductoRequest;
 use App\Responses\JsonResponse;
 
 final class UpdateProductoController
 {
     public function __invoke(int $id): void
     {
-        $json = file_get_contents('php://input');
-        $data = json_decode($json, true);
+        $data = json_decode(file_get_contents('php://input'), true);
 
-        if (!isset($data['nombre'], $data['descripcion'], $data['precio'])) {
-            http_response_code(400);
-            echo json_encode(['error' => 'Faltan datos requeridos']);
+        $productoRequest = new ProductoRequest();
+
+        if (!$productoRequest->validate($data)) {
+            JsonResponse::response([
+                'errors' => $productoRequest->error() // Aquí se devuelven los errores correctamente
+            ], 422);
             return;
         }
 
