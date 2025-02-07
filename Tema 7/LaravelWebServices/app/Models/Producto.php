@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -13,6 +14,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Producto extends Model
 {
+
+    use HasFactory;
+
     protected $table = 'productos';
     protected $fillable = [
         'nombre',
@@ -54,6 +58,7 @@ class Producto extends Model
      */
     public function categoria()
     {
-        return $this->hasOne(Categoria::class);
+        return $this->belongsTo(Categoria::class);
     }
+
 }
